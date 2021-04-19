@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Codeforces Tracker</title>
+</head>
+<body>
+	<div id="app">
+		<form @submit.prevent="submitForm">
+			<input type="text" v-model="input_name">
+			<input type="submit">
+		</form>
+		<p v-if="username.length">Username: {{ username }}</p>
+
+	</div>
+
+
+	<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+	<script src='main.js'></script>
+</body>
+</html>
