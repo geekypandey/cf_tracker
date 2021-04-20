@@ -10,7 +10,19 @@
 			<input type="text" v-model="input_name">
 			<input type="submit">
 		</form>
-		<p v-if="username.length">Username: {{ username }}</p>
+		<p v-if="username.length">Username: <span style="color:blue;">{{ username }}</span></p>
+		<p v-if="errors.length">
+			<ul v-for="error in errors">
+				<li style="color: red">{{ error }}</li>
+			</ul>
+		</p>
+
+		<table v-show="contests.length">
+			<tr v-for="contest in contests">
+				<td>{{ contest[0][1] }}</td>
+				<td v-for="val in contest[1]">{{ val  }}</td>
+			</tr>
+		</table>
 
 	</div>
 
