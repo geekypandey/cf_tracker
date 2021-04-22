@@ -15,6 +15,16 @@ class Contest {
 		this.name = name;
 		this.contest_link = 'https://codeforces.com/contest/' + this.id;
 		this.problems = [];
+		this.type = '';
+		if(this.name.includes('Educational')) {
+			this.type = 'educational';
+		} else if(this.name.includes('Div. 1')) {
+			this.type = 'div1';
+		} else if(this.name.includes('Div. 2')) {
+			this.type = 'div2';
+		} else if(this.name.includes('Div. 3')) {
+			this.type = 'div3';
+		}
 	}
 
 	addProblem(index) {
@@ -29,7 +39,8 @@ var app = new Vue({
 		username: '',
 		user_status: [],
 		errors: [],
-		contests: []
+		contests: [],
+		selected: [],
 	},
 	methods: {
 		submitForm: function() {

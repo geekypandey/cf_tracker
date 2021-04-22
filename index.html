@@ -24,6 +24,16 @@
 			<input type="submit">
 		</form>
 		<p v-if="username.length">Username: <span style="color:blue;">{{ username }}</span></p>
+
+		<input type="checkbox" id="div1" value="div1" v-model="selected">
+		<label for="div1">Div 1</label>
+		<input type="checkbox" id="div2" value="div2" v-model="selected">
+		<label for="div2">Div 2</label>
+		<input type="checkbox" id="div3" value="div3" v-model="selected">
+		<label for="div3">Div 3</label>
+		<input type="checkbox" id="educational" value="educational" v-model="selected">
+		<label for="educational">Educational Rounds</label>
+
 		<p v-show="errors.length">
 			<ul v-for="error in errors">
 				<li style="color: red">{{ error }}</li>
@@ -31,7 +41,7 @@
 		</p>
 
 		<table v-show="contests.length">
-			<tr v-for="contest in contests">
+			<tr v-for="contest in contests" v-show="!selected.length || selected.includes(contest.type)">
 				<td><a :href="contest.contest_link" target="_blank">{{ contest.name }}</a></td>
 				<td v-for="problem in contest.problems"><a :href="problem.problem_link" target="_blank">{{ problem.index }}</a></td>
 			</tr>
