@@ -67,7 +67,8 @@ var app = new Vue({
 				.catch(error => {
 					this.username = '';
 					this.input_name = '';
-					this.errors.push(error);
+					if(!this.errors.length)
+						this.errors.push(error);
 					return [];
 				});
 			var map = new Map();
