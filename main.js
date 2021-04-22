@@ -22,6 +22,7 @@ class Contest {
 		this.contest_link = 'https://codeforces.com/contest/' + this.id;
 		this.problems = [];
 		this.type = '';
+		this.participated = false;
 		if(this.name.includes('Educational')) {
 			this.type = 'educational';
 		} else if(this.name.includes('Div. 1')) {
@@ -36,6 +37,10 @@ class Contest {
 	addProblem(index) {
 		this.problems.push(new Problem(this.id, index));
 	}
+
+	setParticipated() {
+		this.participated = true;
+	}
 }
 
 var app = new Vue({
@@ -47,6 +52,7 @@ var app = new Vue({
 		errors: [],
 		contests: [],
 		selected: [],
+		picked: 'all'
 	},
 	methods: {
 		submitForm: async function() {
@@ -74,25 +80,33 @@ var app = new Vue({
 			var map = new Map();
 			for(sub of submissions) {
 				var key = sub.problem.contestId + sub.problem.index;
-				if(map.has(key) && (map.get(key).localeCompare('SC') == 0)) continue;
-				if(map.has(key) && (map.get(key).localeCompare('SP') == 0)) continue;
-				if(sub.verdict.localeCompare('OK') == 0) {
-					if(sub.author.participantType.localeCompare('CONTESTANT') == 0)  {
-						map.set(key, 'SC');
+				var passed = (sub.verdict.localeCompare('OK') == 0);
+				var participated = (sub.author.participantType.localeCompare('CONTESTANT') == 0);
+				if(map.has(key)) {
+					if(passed) {
+						if(map.get(key).localeCompare('SC') == 0) continue;
+						if(participated) map.set(key, 'SC');
+						else map.set(key, 'SP');
+					} else {
+						if(map.get(key).localeCompare('WC') == 0) continue;
+						if(participated) map.set(key, 'SC');
+						else map.set(key, 'WP');
 					}
-					else map.set(key, 'SP');
-				} else if(!map.has(key)){
-					map.set(key, 'WA');
+				} else {
+					if(passed && participated) map.set(key, 'SC');
+					if(passed && !participated) map.set(key, 'SP');
+					if(!passed && participated) map.set(key, 'WC');
+					if(!passed && !participated) map.set(key, 'WP');
 				}
 			}
-			console.log(map);
 			for(contest of this.contests) {
 				for(problem of contest.problems) {
 					var key = contest.id + problem.index;
 					if(map.has(key)) {
 						var result = map.get(key);
+						if((result.localeCompare('SC') == 0) || (result.localeCompare('WC') == 0)) contest.setParticipated();
 						problem.setResult(result);
-						if((result.localeCompare('WA') == 0)) problem.solved = -1;
+						if((result.localeCompare('WC') == 0) || (result.localeCompare('WP') == 0)) problem.solved = -1;
 						else problem.solved = 1;
 					} else {
 						problem.setResult('');

@@ -4,17 +4,17 @@
 	<meta charset="UTF-8">
 	<title>Codeforces Tracker</title>
 	<style>
-		table, th, td {
+		th, td {
 			border: 1px solid black;
+			padding: 5px 20px;
 		}
 		a {
 			text-decoration:none;
 			color: black;
 		}
 		a:hover {
-			color:	hotpink;
+			color:	blue;
 		}
-
 	</style>
 </head>
 <body>
@@ -35,16 +35,32 @@
 		<input type="checkbox" id="educational" value="educational" v-model="selected">
 		<label for="educational">Educational Rounds</label>
 
+		<br>
+		<br>
+		<div v-show="username.length">
+			<input type="radio" id="all" name="whichContests" value="all" v-model="picked">
+			<label for="all">All</label>
+			<input type="radio" id="participated" name="whichContests" value="participated" v-model="picked">
+			<label for="participated">Participated</label>
+		</div>
+		<br>
+
 		<p v-show="errors.length">
 			<ul v-for="error in errors">
 				<li style="color: red">{{ error }}</li>
 			</ul>
 		</p>
 
-		<table v-show="contests.length" class="table">
-			<tr v-for="contest in contests" v-show="!selected.length || selected.includes(contest.type)">
+		<table v-show="contests.length">
+			<tr v-for="contest in contests" v-show="(!selected.length || selected.includes(contest.type)) && (picked.localeCompare('all') == 0? true: contest.participated)">
 				<td><a :href="contest.contest_link" target="_blank">{{ contest.name }}</a></td>
-				<td v-for="problem in contest.problems" v-bind:bgcolor="problem.solved == 1 ? 'lightgreen': problem.solved == -1 ? '#ff471a' : ''"><a :href="problem.problem_link" target="_blank">{{ problem.index }}<span v-show="problem.result.localeCompare('SC') == 0">&#10004;</span></a></td>
+				<td v-for="problem in contest.problems" v-bind:bgcolor="problem.solved == 1 ? '#7cf07c': problem.solved == -1 ? '#F02A00' : ''" style="text-align:center;">
+					<a :href="problem.problem_link" target="_blank">
+						{{ problem.index }}
+						<span v-show="problem.result.localeCompare('SC') == 0">&#10004;</span>
+						<span v-show="problem.result.localeCompare('WC') == 0">&#10008;</span>
+					</a>
+				</td>
 			</tr>
 		</table>
 
