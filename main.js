@@ -78,10 +78,11 @@ var app = new Vue({
 				for(contest of contests) {
 					if(!contestSize.has(contest.id)) continue;
 					var len = contestSize.get(contest.id);
-					var res = [[contest.id, contest.name]];
+					var res = [['https://codeforces.com/contest/' + contest.id, contest.name]];
 					var p_index = [];
 					for(var i = start; i < start+len; i++) {
-						p_index.push(String.fromCharCode(i));
+						var index = String.fromCharCode(i);
+						p_index.push(['https://codeforces.com/contest/'+ contest.id + '/problem/' + index, index]);
 					}
 					res.push(p_index);
 					response.push(res);
