@@ -32,8 +32,8 @@
 
 		<table v-show="contests.length">
 			<tr v-for="contest in contests">
-				<td><a :href="contest[0][0]" target="_blank">{{ contest[0][1] }}</a></td>
-				<td v-for="val in contest[1]"><a :href="val[0]" target="_blank">{{ val[1] }}</a></td>
+				<td><a :href="contest.contest_link" target="_blank">{{ contest.name }}</a></td>
+				<td v-for="problem in contest.problems"><a :href="problem.problem_link" target="_blank">{{ problem.index }}</a></td>
 			</tr>
 		</table>
 

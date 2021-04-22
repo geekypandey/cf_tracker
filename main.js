@@ -2,6 +2,26 @@ let user_status_url = 'https://codeforces.com/api/user.status?handle='
 let problemset_problem_url = 'https://codeforces.com/api/problemset.problems'
 let contest_list_url = 'https://codeforces.com/api/contest.list'
 
+class Problem {
+	constructor(id, index) {
+		this.index = index;
+		this.problem_link = 'https://codeforces.com/contest/' + id + '/problem/' + index;
+	}
+}
+
+class Contest {
+	constructor(id, name) {
+		this.id = id;
+		this.name = name;
+		this.contest_link = 'https://codeforces.com/contest/' + this.id;
+		this.problems = [];
+	}
+
+	addProblem(index) {
+		this.problems.push(new Problem(this.id, index));
+	}
+}
+
 var app = new Vue({
 	el: '#app',
 	data: {
@@ -78,14 +98,12 @@ var app = new Vue({
 				for(contest of contests) {
 					if(!contestSize.has(contest.id)) continue;
 					var len = contestSize.get(contest.id);
-					var res = [['https://codeforces.com/contest/' + contest.id, contest.name]];
-					var p_index = [];
+					var c = new Contest(contest.id, contest.name);
 					for(var i = start; i < start+len; i++) {
 						var index = String.fromCharCode(i);
-						p_index.push(['https://codeforces.com/contest/'+ contest.id + '/problem/' + index, index]);
+						c.addProblem(index);
 					}
-					res.push(p_index);
-					response.push(res);
+					response.push(c);
 				}
 				return response;
 			})
