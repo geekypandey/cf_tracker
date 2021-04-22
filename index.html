@@ -23,7 +23,8 @@
 			<input type="text" v-model="input_name">
 			<input type="submit">
 		</form>
-		<p v-if="username.length">Username: <span style="color:blue;">{{ username }}</span></p>
+		<br v-show="!username.length">
+		<p v-show="username.length">Username: <span style="color:blue;">{{ username }}</span></p>
 
 		<input type="checkbox" id="div1" value="div1" v-model="selected">
 		<label for="div1">Div 1</label>
@@ -40,7 +41,7 @@
 			</ul>
 		</p>
 
-		<table v-show="contests.length">
+		<table v-show="contests.length" class="table">
 			<tr v-for="contest in contests" v-show="!selected.length || selected.includes(contest.type)">
 				<td><a :href="contest.contest_link" target="_blank">{{ contest.name }}</a></td>
 				<td v-for="problem in contest.problems" v-bind:bgcolor="problem.solved == 1 ? 'lightgreen': problem.solved == -1 ? '#ff471a' : ''"><a :href="problem.problem_link" target="_blank">{{ problem.index }}<span v-show="problem.result.localeCompare('SC') == 0">&#10004;</span></a></td>
