@@ -74,15 +74,17 @@ var app = new Vue({
 			for(sub of submissions) {
 				var key = sub.problem.contestId + sub.problem.index;
 				if(map.has(key) && (map.get(key).localeCompare('SC') == 0)) continue;
+				if(map.has(key) && (map.get(key).localeCompare('SP') == 0)) continue;
 				if(sub.verdict.localeCompare('OK') == 0) {
 					if(sub.author.participantType.localeCompare('CONTESTANT') == 0)  {
 						map.set(key, 'SC');
 					}
 					else map.set(key, 'SP');
-				} else {
+				} else if(!map.has(key)){
 					map.set(key, 'WA');
 				}
 			}
+			console.log(map);
 			for(contest of this.contests) {
 				for(problem of contest.problems) {
 					var key = contest.id + problem.index;
