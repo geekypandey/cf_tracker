@@ -43,16 +43,17 @@ class Contest {
 	}
 }
 
-var app = new Vue({
-	el: '#app',
-	data: {
-		input_name: '',
-		username: '',
-		user_status: [],
-		errors: [],
-		contests: [],
-		selected: [],
-		picked: 'all'
+const app = {
+	data() {
+		return {
+			input_name: '',
+			username: '',
+			user_status: [],
+			errors: [],
+			contests: [],
+			selected: [],
+			picked: 'all'
+		}
 	},
 	methods: {
 		submitForm: async function() {
@@ -66,6 +67,7 @@ var app = new Vue({
 				})
 				.then(data => {
 					this.username = this.input_name;
+					sessionStorage.setItem('username', this.username);
 					this.input_name = '';
 					this.errors = [];
 					return data['result'];
@@ -73,6 +75,8 @@ var app = new Vue({
 				.catch(error => {
 					this.username = '';
 					this.input_name = '';
+					if( sessionStorage && sessionStorage.getItem('username') )
+						sessionStorage.removeItem('username');
 					if(!this.errors.length)
 						this.errors.push(error);
 					return [];
@@ -117,6 +121,9 @@ var app = new Vue({
 		}
 	},
 	created: async function() {
+		if ( sessionStorage && sessionStorage.getItem('username') ) {
+			this.username = sessionStorage.getItem('username');
+		}
 		const contestSize = await fetch(problemset_problem_url)
 			.then(response => {
 				if(response.ok) {
@@ -174,5 +181,6 @@ var app = new Vue({
 			});
 		this.contests = contest_list;
 	}
-})
+}
 
+Vue.createApp(app).mount('#app');

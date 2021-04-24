@@ -52,7 +52,7 @@
 		</p>
 
 		<table v-show="contests.length">
-			<tr v-for="contest in contests" v-show="(!selected.length || selected.includes(contest.type)) && (picked.localeCompare('all') == 0? true: contest.participated)">
+			<tr v-for="contest in contests" v-show="(!selected.length || selected.includes(contest.type)) && (picked.localeCompare('all') == 0? true: contest.participated)" :key="contest.name">
 				<td><a :href="contest.contest_link" target="_blank">{{ contest.name }}</a></td>
 				<td v-for="problem in contest.problems" v-bind:bgcolor="problem.solved == 1 ? '#7cf07c': problem.solved == -1 ? '#F02A00' : ''" style="text-align:center;">
 					<a :href="problem.problem_link" target="_blank">
