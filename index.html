@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-92V836YEXQ"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-92V836YEXQ');
+	</script>
+
 	<meta charset="UTF-8">
 	<title>Codeforces Tracker</title>
 	<style>
@@ -51,7 +61,8 @@
 			</ul>
 		</p>
 
-		<table v-show="contests.length">
+		<p v-if="!contests.length" style="text-align:center;"> Loading.....</p>
+		<table v-else>
 			<tr v-for="contest in contests" v-show="(!selected.length || selected.includes(contest.type)) && (picked.localeCompare('all') == 0? true: contest.participated)" :key="contest.name">
 				<td><a :href="contest.contest_link" target="_blank">{{ contest.name }}</a></td>
 				<td v-for="problem in contest.problems" v-bind:bgcolor="problem.solved == 1 ? '#7cf07c': problem.solved == -1 ? '#F02A00' : ''" style="text-align:center;">
