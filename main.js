@@ -92,6 +92,8 @@ const app = {
 						if(participated) map.set(key, 'SC');
 						else map.set(key, 'SP');
 					} else {
+						if(map.get(key).localeCompare('SC') == 0) continue;
+						if(map.get(key).localeCompare('SP') == 0) continue;
 						if(map.get(key).localeCompare('WC') == 0) continue;
 						if(participated) map.set(key, 'SC');
 						else map.set(key, 'WP');
