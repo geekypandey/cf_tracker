@@ -1,4 +1,5 @@
 module.exports = {
+    publicPath: process.env.NODE_ENV === 'production' ? '/cf_tracker/' : '/',
     pwa: {
         name: 'MyApp',
         iconPaths: {
