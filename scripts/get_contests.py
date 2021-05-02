@@ -12,6 +12,7 @@ res = requests.get(url)
 res = res.json()
 contests = res['result']
 
+
 def get_contest_size(idx):
     url = 'https://codeforces.com/contest/' + str(idx)
     print(url)
@@ -24,10 +25,21 @@ def get_contest_size(idx):
         return 0
     return c_len
 
+
 result = []
-for idx, contest in enumerate(contests):
-    if contest['phase'] == 'BEFORE':
-       continue
+with open('contests.json') as f:
+    completed_results = json.load(f)['contests']
+
+
+def get_unprocessed_contests():
+    for contest in contests:
+        if contest['phase'] == 'BEFORE':
+            continue
+        if all(contest['id'] != cc['contestId'] for cc in completed_results):
+            yield contest
+
+
+for idx, contest in enumerate(get_unprocessed_contests()):
     print(idx, end=' ')
     time.sleep(0.2)
     c = {}
@@ -49,6 +61,8 @@ for idx, contest in enumerate(contests):
     elif contest['name'].find('Div. 3') >= 0:
         c['div'] = '3'
     result.append(c)
+
+result.extend(completed_results)
 
 contests = {"contests": result}
 
