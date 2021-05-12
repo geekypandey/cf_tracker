@@ -19,22 +19,26 @@ export default {
       errors: [],
     };
   },
+
   emits: {
     updateUser: null,
     updateRank: null,
   },
+
   methods: {
     async submitForm() {
-      const userVerified = await this.verifyUser();
-      if (userVerified) {
+      const isUserVerified = await this.verifyUser();
+      if (isUserVerified) {
         this.$emit("updateUser", this.username);
         this.$emit("updateRank", this.rank);
       }
-      console.log(this.rank);
+      // console.log(this.rank);
 
+      // reseting the username and rank
       this.username = "";
       this.rank = "";
     },
+
     async verifyUser() {
       const user_info_url = "https://codeforces.com/api/user.info?handles=";
 
@@ -50,7 +54,7 @@ export default {
       ).then((resp) => resp.json());
 
       if (user_info.status.localeCompare("FAILED") == 0) {
-        this.errors.push(`User with handle ${this.username} not found`);
+        this.errors.push(`User with handle ${this.username} not found!`);
         return false;
       }
       if (user_info.result[0].rank) this.rank = user_info.result[0].rank;

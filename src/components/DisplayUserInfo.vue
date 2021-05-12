@@ -21,11 +21,13 @@ export default {
       default: "",
     },
   },
+
   data() {
     return {
       color: "",
     };
   },
+
   watch: {
     rank() {
       const colorMap = new Map([

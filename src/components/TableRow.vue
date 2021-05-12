@@ -6,7 +6,7 @@
     <td
       v-for="problem in contest.problems"
       :key="problem.index"
-      :class="{ AC: problem.solved >= 1, WA: problem.solved <= -1 }"
+      :class="{ AC: problem.solved > 0, WA: problem.solved < 0 }"
     >
       <a :href="problem.link" target="_blank"> {{ problem.index }}</a>
       <span v-show="problem.solved == 2">&#10004;</span>

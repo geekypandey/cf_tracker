@@ -1,9 +1,9 @@
 <template>
-  <filter-contests
+  <display-filter-contests
     :username="username"
     @updateSelected="selected = $event"
     @togglePicked="picked = $event"
-  ></filter-contests>
+  ></display-filter-contests>
   <br />
   <div v-if="!contests.length" style="text-align: center">Loading.....</div>
   <table v-else>
@@ -16,10 +16,11 @@
 </template>
 
 <script>
-import FilterContests from "./FilterContests.vue";
+import DisplayFilterContests from "./DisplayFilterContests.vue";
 import TableRow from "./TableRow.vue";
 import ContestsData from "../data/contests.json";
 
+// Need to move this out to separate file [Problem and Contest]
 class Problem {
   constructor(id, index) {
     this.index = index;
@@ -54,9 +55,10 @@ class Contest {
 
 export default {
   components: {
-    FilterContests,
+    DisplayFilterContests,
     TableRow,
   },
+
   props: {
     username: {
       type: String,
@@ -64,6 +66,7 @@ export default {
       default: "",
     },
   },
+
   data() {
     return {
       contests: [],
@@ -71,6 +74,7 @@ export default {
       picked: "all",
     };
   },
+
   methods: {
     display(contest) {
       return (
@@ -82,15 +86,15 @@ export default {
           : contest.passive)
       );
     },
+
     resetContests() {
-      for (let contest of this.contests) {
+      this.contests.forEach(function (contest) {
         contest.active = false;
         contest.passive = false;
-        for (let problem of contest.problems) {
-          problem.solved = 0;
-        }
-      }
+        contest.problems.forEach((problem) => (problem.solved = 0));
+      });
     },
+
     populateSub(submissions) {
       // create a dictionary for submissions
       this.resetContests();
@@ -98,6 +102,7 @@ export default {
       for (let sub of submissions) {
         let c = 0;
         let key = sub.problem.contestId + sub.problem.index;
+        // clever but not understandable
         if (sub.verdict == "OK") {
           c++;
         } else {
@@ -127,11 +132,13 @@ export default {
       }
     },
   },
+
   computed: {
     filteredContests() {
       return this.contests.filter((contest) => this.display(contest));
     },
   },
+
   watch: {
     async username() {
       const user_status_url = "https://codeforces.com/api/user.status?handle=";
@@ -152,9 +159,11 @@ export default {
       this.populateSub(submissions);
     },
   },
+
   created() {
+    // load the data at time of creation
     let data = ContestsData.contests;
-    data.sort((a, b) => b.startTimeSeconds - a.startTimeSeconds);
+    data.sort((a, b) => b.startTimeSeconds - a.startTimeSeconds); // change this sort function
     let contests = [];
     for (let d of data) {
       var c = new Contest(d.contestId, d.name, d.div);
