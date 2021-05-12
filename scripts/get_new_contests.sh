@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+set -e
+
 if [[ -z "${VIRUTAL_ENV}" ]]; then
 	python="${VIRTUAL_ENV}/bin/python"
 fi

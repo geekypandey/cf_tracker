@@ -1,4 +1,4 @@
-import string
+import os
 import json
 import time
 
@@ -13,22 +13,26 @@ res = res.json()
 contests = res['result']
 
 
-def get_contest_size(idx):
+def get_problem_index(idx):
     url = 'https://codeforces.com/contest/' + str(idx)
     print(url)
     res = requests.get(url)
     soup = bs(res.text, 'html.parser')
-    c_len = 0
+    index = []
     try:
-        c_len = len(soup.find('table', {'class': 'problems'}).find_all('tr')) - 1
+        trs = soup.find('table', {'class': 'problems'}).find_all('tr')[1:]
+        for tr in trs:
+            index.append(tr.find('td').text.strip())
     except:
-        return 0
-    return c_len
+        return []
+    return index
 
 
 result = []
-with open('contests.json') as f:
-    completed_results = json.load(f)['contests']
+completed_results = []
+if os.path.exists('contests.json'):
+    with open('contests.json') as f:
+        completed_results = json.load(f)['contests']
 
 
 def get_unprocessed_contests():
@@ -46,11 +50,7 @@ for idx, contest in enumerate(get_unprocessed_contests()):
     c['contestId'] = contest['id']
     c['name'] = contest['name']
     c['startTimeSeconds'] = contest['startTimeSeconds']
-    c_len = get_contest_size(contest['id'])
-    index = []
-    for i in string.ascii_uppercase[:c_len]:
-        index.append(i)
-    c['index'] = index
+    c['index'] = get_problem_index(contest['id'])
     c['div'] = ''
     if contest['name'].find('Educational') >= 0:
         c['div'] = 'E'
