@@ -1,35 +1,48 @@
 <template>
-  <p v-if="username.length">
-    Username :
-    <span :style="{ color: color }"
-      >{{ username }} <span v-show="rank">[{{ rank }}]</span></span
+  <p v-if="usernames.length">
+    Usernames :
+    <span
+      v-for="(username, index) in usernames"
+      :style="{ color: colors[index] }"
+      :key="username"
     >
+      {{ username }}
+      <span v-show="ranks[index]">[{{ ranks[index] }}]</span>
+      <span v-show="index != usernames.length - 1" style="color: black">
+        ||
+      </span>
+    </span>
   </p>
 </template>
 
 <script>
 export default {
   props: {
-    username: {
-      type: String,
+    usernames: {
+      type: Array,
       required: true,
-      default: "",
+      default: function () {
+        return [];
+      },
     },
-    rank: {
-      type: String,
+    ranks: {
+      type: Array,
       required: true,
-      default: "",
+      default: function () {
+        return [];
+      },
     },
   },
 
   data() {
     return {
-      color: "",
+      colors: [],
     };
   },
 
   watch: {
-    rank() {
+    ranks() {
+      this.colors = [];
       const colorMap = new Map([
         ["newbie", "gray"],
         ["pupil", "rgb(136, 204, 34)"],
@@ -39,13 +52,16 @@ export default {
         ["canditate_master", "rgb(170, 0, 170)"],
         ["master", "rgb(255, 140, 0)"],
       ]);
-      if (colorMap.has(this.rank)) {
-        this.color = colorMap.get(this.rank);
-      } else if (this.rank) {
-        this.color = "red";
-      } else {
-        this.color = "";
+      for (let rank of this.ranks) {
+        if (colorMap.has(rank)) {
+          this.colors.push(colorMap.get(rank));
+        } else if (rank) {
+          this.colors.push("red");
+        } else {
+          this.colors.push("");
+        }
       }
+      console.log(this.colors);
     },
   },
 };

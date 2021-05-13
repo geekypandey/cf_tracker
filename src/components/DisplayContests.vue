@@ -1,10 +1,10 @@
 <template>
   <display-filter-contests
-    :username="username"
+    :usernames="usernames"
     @updateSelected="selected = $event"
     @togglePicked="picked = $event"
   ></display-filter-contests>
-  <br />
+  <hr />
   <div v-if="!contests.length" style="text-align: center">Loading.....</div>
   <table v-else>
     <table-row
@@ -60,10 +60,12 @@ export default {
   },
 
   props: {
-    username: {
-      type: String,
+    usernames: {
+      type: Array,
       required: true,
-      default: "",
+      default: function () {
+        return [];
+      },
     },
   },
 
@@ -97,7 +99,6 @@ export default {
 
     populateSub(submissions) {
       // create a dictionary for submissions
-      this.resetContests();
       let map = new Map();
       for (let sub of submissions) {
         let c = 0;
@@ -140,23 +141,27 @@ export default {
   },
 
   watch: {
-    async username() {
+    async usernames() {
       const user_status_url = "https://codeforces.com/api/user.status?handle=";
-      const submissions = await fetch(user_status_url + this.username)
-        .then((res) => {
-          if (res.ok) {
-            return res.json();
-          } else {
-            throw new Error("Username not found!");
-          }
-        })
-        .then((data) => {
-          return data["result"];
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      this.populateSub(submissions);
+      this.resetContests();
+      for (let username of this.usernames) {
+        username = username.trim();
+        const submissions = await fetch(user_status_url + username)
+          .then((res) => {
+            if (res.ok) {
+              return res.json();
+            } else {
+              throw new Error(`Username  ${username} not found!`);
+            }
+          })
+          .then((data) => {
+            return data["result"];
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        this.populateSub(submissions);
+      }
     },
   },
 

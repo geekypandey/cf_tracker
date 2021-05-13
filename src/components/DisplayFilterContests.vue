@@ -8,7 +8,7 @@
   <input type="checkbox" id="educational" value="E" v-model="selected" />
   <label for="educational">Educational Rounds</label>
 
-  <div v-show="username.length">
+  <div v-show="usernames.length">
     <input type="radio" name="whichContests" value="all" v-model="picked" />
     <label for="all">All</label>
     <input type="radio" name="whichContests" value="active" v-model="picked" />
@@ -21,10 +21,12 @@
 <script>
 export default {
   props: {
-    username: {
-      type: String,
+    usernames: {
+      type: Array,
       required: true,
-      default: "",
+      default: function () {
+        return [];
+      },
     },
   },
   emits: ["updateSelected", "togglePicked"],

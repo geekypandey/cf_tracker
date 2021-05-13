@@ -15,50 +15,68 @@ export default {
   data() {
     return {
       username: "",
-      rank: "",
+      ranks: [],
       errors: [],
     };
   },
 
   emits: {
-    updateUser: null,
-    updateRank: null,
+    updateUsers: null,
+    updateRanks: null,
   },
 
   methods: {
     async submitForm() {
       const isUserVerified = await this.verifyUser();
       if (isUserVerified) {
-        this.$emit("updateUser", this.username);
-        this.$emit("updateRank", this.rank);
+        var usernames = this.username
+          .trim()
+          .split(";")
+          .map((username) => {
+            return username.trim();
+          })
+          .filter((username) => username.length);
+        console.log(this.ranks);
+        this.$emit("updateUsers", usernames);
+        this.$emit("updateRanks", this.ranks);
       }
-      // console.log(this.rank);
 
       // reseting the username and rank
       this.username = "";
-      this.rank = "";
+      this.ranks = [];
     },
 
     async verifyUser() {
       const user_info_url = "https://codeforces.com/api/user.info?handles=";
 
+      var usernames = this.username
+        .trim()
+        .split(";")
+        .map((username) => username.trim())
+        .filter((username) => username.length);
+      console.log(usernames);
       this.errors = [];
-      this.username = this.username.trim();
-      if (!this.username.length) {
+      if (!usernames.length) {
         this.errors.push("Please Enter a Username.");
         return false;
       }
 
-      const user_info = await fetch(
-        user_info_url + this.username
-      ).then((resp) => resp.json());
-
-      if (user_info.status.localeCompare("FAILED") == 0) {
-        this.errors.push(`User with handle ${this.username} not found!`);
-        return false;
+      var verified = true;
+      for (let username of usernames) {
+        username = username.trim();
+        if (!username.length) continue;
+        const user_info = await fetch(user_info_url + username).then((resp) =>
+          resp.json()
+        );
+        if (user_info.status.localeCompare("FAILED") == 0) {
+          this.errors.push(`User with handle ${username} not found!`);
+          verified = false;
+        }
+        if (user_info.result[0].rank) this.ranks.push(user_info.result[0].rank);
+        else this.ranks.push("");
       }
-      if (user_info.result[0].rank) this.rank = user_info.result[0].rank;
-      return true;
+
+      return verified;
     },
   },
 };

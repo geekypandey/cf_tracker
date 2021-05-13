@@ -1,10 +1,10 @@
 <template>
   <search-user
-    @updateUser="username = $event"
-    @updateRank="rank = $event"
+    @updateUsers="usernames = $event"
+    @updateRanks="ranks = $event"
   ></search-user>
-  <display-user-info :username="username" :rank="rank"></display-user-info>
-  <display-contests :username="username"></display-contests>
+  <display-user-info :usernames="usernames" :ranks="ranks"></display-user-info>
+  <display-contests :usernames="usernames"></display-contests>
 </template>
 
 
@@ -22,8 +22,8 @@ export default {
   },
   data() {
     return {
-      username: "",
-      rank: "",
+      usernames: [],
+      ranks: [],
     };
   },
 };
