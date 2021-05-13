@@ -61,7 +61,6 @@ export default {
           this.colors.push("");
         }
       }
-      console.log(this.colors);
     },
   },
 };

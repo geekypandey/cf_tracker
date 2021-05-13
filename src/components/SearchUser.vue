@@ -1,7 +1,9 @@
 <template>
   <form @submit.prevent="submitForm">
-    <input type="text" v-model="username" placeholder="Enter usernames separated by semicolon (;)" size="45" />
+    <input type="text" v-model="userInput" placeholder="Enter usernames separated by semicolon (;)" size="45" />
     <input type="submit" />
+    <input type="checkbox" id="remember_me" value="true" v-model="rememberMe" />
+    <label for="div1">Remember Me?</label>
   </form>
   <p v-show="errors.length">
     <ul v-for="error in errors" :key="error">
@@ -14,9 +16,10 @@
 export default {
   data() {
     return {
-      username: "",
+      userInput: "",
       ranks: [],
       errors: [],
+      rememberMe: true,
     };
   },
 
@@ -27,34 +30,34 @@ export default {
 
   methods: {
     async submitForm() {
-      const isUserVerified = await this.verifyUser();
-      if (isUserVerified) {
-        var usernames = this.username
-          .trim()
-          .split(";")
-          .map((username) => {
-            return username.trim();
-          })
-          .filter((username) => username.length);
-        console.log(this.ranks);
-        this.$emit("updateUsers", usernames);
-        this.$emit("updateRanks", this.ranks);
-      }
-
-      // reseting the username and rank
-      this.username = "";
-      this.ranks = [];
-    },
-
-    async verifyUser() {
-      const user_info_url = "https://codeforces.com/api/user.info?handles=";
-
-      var usernames = this.username
+      var usernames = this.userInput
         .trim()
         .split(";")
         .map((username) => username.trim())
         .filter((username) => username.length);
-      console.log(usernames);
+
+      const isUserVerified = await this.verifyUsers(usernames);
+
+      if (isUserVerified) {
+        this.$emit("updateUsers", usernames);
+        this.$emit("updateRanks", this.ranks);
+
+        if (this.rememberMe) {
+          localStorage.setItem("cf-users", this.userInput);
+        } else {
+          localStorage.removeItem("cf-users");
+        }
+      }
+
+      // reseting the username and rank
+      this.userInput = "";
+      this.ranks = [];
+    },
+
+    // having side-effects and not clear based on the function name [experimental]
+    async verifyUsers(usernames) {
+      const user_info_url = "https://codeforces.com/api/user.info?handles=";
+
       this.errors = [];
       if (!usernames.length) {
         this.errors.push("Please Enter a Username.");
@@ -79,5 +82,30 @@ export default {
       return verified;
     },
   },
+
+  async created() {
+    if (localStorage.getItem("cf-users")) {
+      var usernames = localStorage
+        .getItem("cf-users")
+        .trim()
+        .split(";")
+        .map((username) => username.trim())
+        .filter((username) => username.length);
+
+      const isUserVerified = await this.verifyUsers(usernames);
+
+      if (isUserVerified) {
+        this.$emit("updateUsers", usernames);
+        this.$emit("updateRanks", this.ranks);
+      }
+      this.ranks = [];
+    }
+  },
 };
 </script>
+
+<style scoped>
+input {
+  margin-left: 5px;
+}
+</style>
