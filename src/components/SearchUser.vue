@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="submitForm">
-    <input type="text" v-model="username" />
+    <input type="text" v-model="username" placeholder="Enter usernames separated by semicolon (;)" size="45" />
     <input type="submit" />
   </form>
   <p v-show="errors.length">

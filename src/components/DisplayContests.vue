@@ -1,9 +1,9 @@
 <template>
-  <display-filter-contests
+  <display-filters
     :usernames="usernames"
     @updateSelected="selected = $event"
     @togglePicked="picked = $event"
-  ></display-filter-contests>
+  ></display-filters>
   <hr />
   <div v-if="!contests.length" style="text-align: center">Loading.....</div>
   <table v-else>
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import DisplayFilterContests from "./DisplayFilterContests.vue";
+import DisplayFilters from "./DisplayFilters.vue";
 import TableRow from "./TableRow.vue";
 import ContestsData from "../data/contests.json";
 
@@ -55,7 +55,7 @@ class Contest {
 
 export default {
   components: {
-    DisplayFilterContests,
+    DisplayFilters,
     TableRow,
   },
 
