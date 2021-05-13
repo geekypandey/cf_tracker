@@ -9,8 +9,10 @@
       :class="{ AC: problem.solved > 0, WA: problem.solved < 0 }"
     >
       <a :href="problem.link" target="_blank"> {{ problem.index }}</a>
-      <span v-show="problem.solved == 2">&#10004;</span>
-      <span v-show="problem.solved == -2">&#10008;</span>
+      <span v-show="singleUser">
+        <span v-show="problem.solved == 2">&#10004;</span>
+        <span v-show="problem.solved == -2">&#10008;</span>
+      </span>
     </td>
   </tr>
 </template>
@@ -21,6 +23,11 @@ export default {
     contest: {
       type: Object,
       required: true,
+    },
+    singleUser: {
+      type: Boolean,
+      required: true,
+      default: false,
     },
   },
 };

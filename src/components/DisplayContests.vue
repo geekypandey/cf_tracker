@@ -10,6 +10,7 @@
     <table-row
       v-for="contest in filteredContests"
       :contest="contest"
+      :singleUser="usernames.length === 1"
       :key="contest.id"
     ></table-row>
   </table>
