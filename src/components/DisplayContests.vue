@@ -3,6 +3,7 @@
     :usernames="usernames"
     @updateSelected="selected = $event"
     @togglePicked="picked = $event"
+    @refreshSub="refresh"
   ></display-filters>
   <hr />
   <div v-if="!contests.length" style="text-align: center">Loading.....</div>
@@ -23,10 +24,12 @@ import ContestsData from "../data/contests.json";
 
 // Need to move this out to separate file [Problem and Contest]
 class Problem {
-  constructor(id, index) {
+  constructor(contest_id, index, solvedCount) {
     this.index = index;
-    this.link = "https://codeforces.com/contest/" + id + "/problem/" + index;
-    this.solved = 0;
+    this.link =
+      "https://codeforces.com/contest/" + contest_id + "/problem/" + index;
+    this.solved = 0; // poor naming
+    this.solvedCount = solvedCount;
   }
 
   solved(value) {
@@ -45,8 +48,8 @@ class Contest {
     this.passive = false;
   }
 
-  addProblem(index) {
-    this.problems.push(new Problem(this.id, index));
+  addProblem(index, solvedCount) {
+    this.problems.push(new Problem(this.id, index, solvedCount));
   }
 
   participated() {
@@ -133,6 +136,33 @@ export default {
         }
       }
     },
+
+    async refresh() {
+      for (let username of this.usernames) {
+        let submissions = await this.getUserSubmissions(username);
+        this.populateSub(submissions);
+      }
+    },
+
+    async getUserSubmissions(username) {
+      const user_status_url = "https://codeforces.com/api/user.status?handle=";
+      username = username.trim();
+      const submissions = await fetch(user_status_url + username)
+        .then((res) => {
+          if (res.ok) {
+            return res.json();
+          } else {
+            throw new Error(`Username  ${username} not found!`);
+          }
+        })
+        .then((data) => {
+          return data["result"];
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      return submissions;
+    },
   },
 
   computed: {
@@ -143,24 +173,9 @@ export default {
 
   watch: {
     async usernames() {
-      const user_status_url = "https://codeforces.com/api/user.status?handle=";
       this.resetContests();
       for (let username of this.usernames) {
-        username = username.trim();
-        const submissions = await fetch(user_status_url + username)
-          .then((res) => {
-            if (res.ok) {
-              return res.json();
-            } else {
-              throw new Error(`Username  ${username} not found!`);
-            }
-          })
-          .then((data) => {
-            return data["result"];
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        let submissions = await this.getUserSubmissions(username);
         this.populateSub(submissions);
       }
     },
@@ -173,8 +188,8 @@ export default {
     let contests = [];
     for (let d of data) {
       var c = new Contest(d.contestId, d.name, d.div);
-      for (let idx of d.index) {
-        c.addProblem(idx);
+      for (let problem of d.problems) {
+        c.addProblem(problem.index, problem.solvedCount);
       }
       contests.push(c);
     }
@@ -182,4 +197,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+table {
+  border-collapse: collapse;
+}
+</style>
 

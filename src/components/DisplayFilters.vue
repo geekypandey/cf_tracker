@@ -15,6 +15,12 @@
     <label for="participated">Contests Participated</label>
     <input type="radio" name="whichContests" value="passive" v-model="picked" />
     <label for="attempted">Attempted Any</label>
+    <input
+      type="button"
+      @click="refresh"
+      value="Refresh"
+      style="float: right; margin-right: 20px"
+    />
   </div>
 </template>
 
@@ -29,13 +35,20 @@ export default {
       },
     },
   },
-  emits: ["updateSelected", "togglePicked"],
+  emits: ["updateSelected", "togglePicked", "refreshSub"],
   data() {
     return {
       selected: [],
       picked: "all",
     };
   },
+
+  methods: {
+    refresh() {
+      this.$emit("refreshSub");
+    },
+  },
+
   watch: {
     selected() {
       this.$emit("updateSelected", this.selected);

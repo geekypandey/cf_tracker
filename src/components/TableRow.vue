@@ -13,6 +13,8 @@
         <span v-show="problem.solved == 2">&#10004;</span>
         <span v-show="problem.solved == -2">&#10008;</span>
       </span>
+      <br />
+      <span style="color: brown">[{{ problem.solvedCount }}]</span>
     </td>
   </tr>
 </template>
