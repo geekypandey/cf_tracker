@@ -7,7 +7,10 @@ if [[ -z "${VIRUTAL_ENV}" ]]; then
 fi
 
 echo "Running Python script!"
-python get_contests.py
+if python get_contests.py; then
+	echo "Copying contests.json to ../src/data/contests.json"
+	cp contests.json ../src/data/contests.json
+else
+	exit 1
+fi
 
-echo "Copying contests.json to ../src/data/contests.json"
-cp contests.json ../src/data/contests.json

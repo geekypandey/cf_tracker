@@ -123,7 +123,7 @@ if __name__ == "__main__":
 
     if not contests:
         print('No new contests for processing. Done.')
-        exit(0)
+        exit(1)
 
     print(f'Processing {len(contests)} new contests')
     new_contests, new_blacklisted = process_contests(contests)
