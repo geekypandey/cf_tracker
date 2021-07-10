@@ -38,6 +38,8 @@ jobs:
             git add -A
             git commit -m 'update contests.json'
             git push
+          else
+            exit 1
           fi
         working-directory: ${{env.working-directory}}
 
