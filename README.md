@@ -1,24 +1,27 @@
 # CF Tracker
+> A codeforces tracker, helps to find appropriate problems for solving.
 
-## Project setup
+### Tech Stack
+The application is built to be a static single page web application, so as to be deployable on GitHub pages. No backend is required.
+The frontend is built using VueJS.
+For fetching contests data, python script is used.
+
+Deployed on Github Pages.
+
+The contests data is updated and new site is deployed using GitHub Actions(CI/CD).
+
+### Running Locally
+
+Steps:
+1. Clone the repository
+```
+git clone https://github.com/geekypandey/cf_tracker.git
+```
+2. Install npm packages
 ```
 npm install
 ```
-
-### Compiles and hot-reloads for development
+3. Run the application
 ```
 npm run serve
 ```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
