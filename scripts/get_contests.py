@@ -74,7 +74,7 @@ def get_problems(contest):
 
 def process_contests(contests):
     contest_data = []
-    blacklisted = {}
+    blacklisted = set()
     fields = ["id", "name", "startTimeSeconds"]
     as_fields = ["contestId", "name", "startTimeSeconds"]
     for idx, contest in enumerate(contests, start=1):
@@ -118,8 +118,11 @@ if __name__ == "__main__":
     if not os.environ.get('TRY_BLACKLISTED'):
         contests = [contest for contest in contests if contest['id'] not in blacklisted_ids]
 
-    if contests:
-        print(f'Processing {len(contests)} new contests')
+    if not contests:
+        print('No contests for processing')
+        exit(1)
+
+    print(f'Processing {len(contests)} new contests')
     new_contests, new_blacklisted_ids = process_contests(contests)
 
     print(f'Processed! {len(new_contests)} added and {len(new_blacklisted_ids)} blacklisted.')
