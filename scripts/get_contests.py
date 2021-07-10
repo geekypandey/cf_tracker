@@ -74,7 +74,7 @@ def get_problems(contest):
 
 def process_contests(contests):
     contest_data = []
-    blacklisted = []
+    blacklisted = {}
     fields = ["id", "name", "startTimeSeconds"]
     as_fields = ["contestId", "name", "startTimeSeconds"]
     for idx, contest in enumerate(contests, start=1):
@@ -85,7 +85,7 @@ def process_contests(contests):
             c["problems"] = get_problems(contest)
         except BlacklistError:
             print(f"{idx} : {contest['id']} blacklisted!")
-            blacklisted.append(contest["id"])
+            blacklisted.add(contest["id"])
             continue
         contest_data.append(c)
         print(f"{idx} : {contest['id']} completed!")
@@ -102,32 +102,30 @@ if __name__ == "__main__":
     contests = [contest for contest in contests if contest['phase'] != 'BEFORE']
 
     # remove processed contests
-    completed_ids = []
-    blacklisted = []
+    processed_ids = {}
+    blacklisted = {}
     if os.path.exists(FILENAME):
         with open(FILENAME) as f:
             result = json.load(f)
         processed_contests = result.get('contests', [])
-        completed_ids = [contest['contestId'] for contest in processed_contests]
-        blacklisted_ids = result.get('blacklisted', [])
+        processed_ids = {contest['contestId'] for contest in processed_contests}
+        blacklisted_ids = {idx for idx in result.get('blacklisted', [])}
 
-    contests = [contest for contest in contests if contest['id'] not in completed_ids]
+    # select unprocessed contests
+    contests = [contest for contest in contests if contest['id'] not in processed_ids]
 
-    # if not try blacklisted, remove the blacklisted ids
+    # filter blacklisted contests out, if TRY_BLACKLISTED env variable is not set
     if not os.environ.get('TRY_BLACKLISTED'):
         contests = [contest for contest in contests if contest['id'] not in blacklisted_ids]
 
-    if not contests:
-        print('No new contests for processing. Done.')
-        exit(1)
-
-    print(f'Processing {len(contests)} new contests')
+    if contests:
+        print(f'Processing {len(contests)} new contests')
     new_contests, new_blacklisted_ids = process_contests(contests)
 
     print(f'Processed! {len(new_contests)} added and {len(new_blacklisted_ids)} blacklisted.')
 
     contests = processed_contests + new_contests
-    blacklisted_ids = blacklisted_ids + new_blacklisted_ids
+    blacklisted_ids =  blacklisted_ids.union(new_blacklisted_ids)
 
     contests_ids = {contest['contestId'] for contest in contests}
 
