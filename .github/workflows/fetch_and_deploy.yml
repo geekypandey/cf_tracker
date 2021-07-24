@@ -45,6 +45,7 @@ jobs:
         working-directory: ${{env.scripts-dir}}
       - name: Build and Deploy
         run: |
+          sleep 15
           if python ./scripts/check_last_commit.py; then
             npm ci
             npm run build
