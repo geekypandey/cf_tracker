@@ -1,0 +1,28 @@
+name: Deploy on Github Pages
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      - name: Setup node 14
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+      - name: Build and Deploy
+        run: |
+          npm ci
+          npm run build
+          cd dist
+          echo "cf-tracker.tech" > CNAME
+          git config --global user.name "Github Actions Bot"
+          git config --global user.email "<>"
+          git init .
+          git add -A
+          git commit -m 'new build'
+          git push -f https://geekypandey:${{secrets.GITHUB_TOKEN}}@github.com/geekypandey/cf_tracker.git master:gh-pages
