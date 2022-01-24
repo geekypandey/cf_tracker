@@ -25,6 +25,7 @@ jobs:
           echo "cf-tracker.tech" > CNAME
           git config --global user.name "Github Actions Bot"
           git config --global user.email "<>"
+          git config --global init.defaultBranch main
           git init .
           git add -A
           git commit -m 'new build'
