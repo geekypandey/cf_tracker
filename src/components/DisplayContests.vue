@@ -1,13 +1,15 @@
 <template>
-  <display-filters
-    :usernames="usernames"
-    @updateSelected="selected = $event"
-    @togglePicked="picked = $event"
-    @refreshSub="refresh"
-  ></display-filters>
-  <hr />
+  <div class="ml-10">
+    <display-filters
+      :usernames="usernames"
+      @updateSelected="selected = $event"
+      @togglePicked="picked = $event"
+      @refreshSub="refresh"
+      ></display-filters>
+    <hr />
+  </div>
   <div v-if="!contests.length" style="text-align: center">Loading.....</div>
-  <table v-else>
+  <table class="table-auto" v-else>
     <table-row
       v-for="contest in filteredContests"
       :contest="contest"

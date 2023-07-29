@@ -1,15 +1,17 @@
 <template>
-  <form @submit.prevent="submitForm">
-    <input type="text" v-model="userInput" placeholder="Enter usernames separated by semicolon (;)" size="45" />
-    <input type="submit" />
-    <input type="checkbox" id="remember_me" value="true" v-model="rememberMe" />
-    <label for="div1">Remember Me?</label>
-  </form>
-  <p v-show="errors.length">
-    <ul v-for="error in errors" :key="error">
-      <li style="color: red">{{ error }}</li>
-    </ul>
-  </p>
+  <div class="flex mx-4 mt-5 ml-20">
+    <form @submit.prevent="submitForm" class="flex border">
+      <input class="px-1 py-1 border border-black rounded-md" type="text" v-model="userInput" placeholder="Enter usernames separated by semicolon (;)" size="45" />
+      <input class="px-1 border-2 rounded-lg bg-slate-200 hover:bg-slate-400 hover:clickable cursor-pointer" type="submit" />
+      <input type="checkbox" id="remember_me" value="true" v-model="rememberMe" />
+      <label for="div1">Remember Me?</label>
+    </form>
+    <p v-show="errors.length">
+      <ul v-for="error in errors" :key="error">
+        <li style="color: red">{{ error }}</li>
+      </ul>
+    </p>
+  </div>
 </template>
 
 <script>

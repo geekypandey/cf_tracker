@@ -1,10 +1,20 @@
 <template>
-  <search-user
-    @updateUsers="usernames = $event"
-    @updateRanks="ranks = $event"
-  ></search-user>
-  <display-user-info :usernames="usernames" :ranks="ranks"></display-user-info>
-  <display-contests :usernames="usernames"></display-contests>
+  <header class="flex bg-slate-300 py-2 justify-around">
+    <span class="text-3xl font-medium">CF-TRACKER</span>
+    <span class="text-xl py-1">Upcoming contests</span>
+  </header>
+  <main class="my-1 ml-32">
+    <div class="ml-20 mb-2">
+      <search-user
+        @updateUsers="usernames = $event"
+        @updateRanks="ranks = $event"
+        ></search-user>
+      <display-user-info :usernames="usernames" :ranks="ranks"></display-user-info>
+    </div>
+    <div>
+      <display-contests :usernames="usernames"></display-contests>
+    </div>
+  </main>
 </template>
 
 

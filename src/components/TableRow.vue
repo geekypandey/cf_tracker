@@ -1,5 +1,6 @@
 <template>
   <tr>
+    <td>#</td>
     <td>
       <a :href="contest.link" target="_blank"> {{ contest.name }}</a>
     </td>
