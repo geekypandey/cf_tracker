@@ -1,7 +1,10 @@
 <template>
   <header class="flex bg-slate-300 py-2 justify-around">
     <span class="text-3xl font-medium">CF-TRACKER</span>
-    <span class="text-xl py-1">Upcoming contests</span>
+    <div class="flex space-x-12">
+      <span class="text-xl py-1">Upcoming contests</span>
+      <span class="text-xl py-1">Playground</span>
+    </div>
   </header>
   <main class="my-1 ml-32">
     <div class="ml-20 mb-2">
