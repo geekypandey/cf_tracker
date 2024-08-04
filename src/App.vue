@@ -1,13 +1,9 @@
 <script setup>
 import { ref } from 'vue'
 
-import SearchUser from "@/components/SearchUser.vue";
-import DisplayUserInfo from "@/components/DisplayUserInfo.vue";
-import DisplayContests from "@/components/DisplayContests.vue";
+import ContestView from '@/views/ContestView.vue'
 
-const usernames = ref([])
-const ranks = ref([])
-const showNewFeatures = ref(false)
+const showNewFeatures = ref(false);
 </script>
 
 <template>
@@ -19,15 +15,6 @@ const showNewFeatures = ref(false)
     </div>
   </header>
   <main class="my-1 ml-32">
-    <div class="ml-20 mb-2">
-      <search-user
-        @updateUsers="usernames = $event"
-        @updateRanks="ranks = $event"
-        ></search-user>
-      <display-user-info :usernames="usernames" :ranks="ranks"></display-user-info>
-    </div>
-    <div>
-      <display-contests :usernames="usernames"></display-contests>
-    </div>
+      <ContestView />
   </main>
 </template>
