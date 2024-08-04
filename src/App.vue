@@ -22,9 +22,9 @@
 
 
 <script>
-import SearchUser from "./components/SearchUser.vue";
-import DisplayUserInfo from "./components/DisplayUserInfo.vue";
-import DisplayContests from "./components/DisplayContests.vue";
+import SearchUser from "@/components/SearchUser.vue";
+import DisplayUserInfo from "@/components/DisplayUserInfo.vue";
+import DisplayContests from "@/components/DisplayContests.vue";
 
 export default {
   name: "App",

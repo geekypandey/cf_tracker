@@ -20,9 +20,9 @@
 </template>
 
 <script>
-import DisplayFilters from "./DisplayFilters.vue";
-import TableRow from "./TableRow.vue";
-import ContestsData from "../data/contests.json";
+import DisplayFilters from "@/components/DisplayFilters.vue";
+import TableRow from "@/components/TableRow.vue";
+import ContestsData from "@/data/contests.json";
 
 // Need to move this out to separate file [Problem and Contest]
 class Problem {
