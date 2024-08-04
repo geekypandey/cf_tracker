@@ -1,5 +1,5 @@
 <template>
-  <div class="flex mx-4 mt-5 ml-20">
+  <div class="flex bg-white justify-center py-2 rounded-md">
     <form @submit.prevent="submitForm" class="flex border">
       <input class="px-1 py-1 border border-black rounded-md" type="text" v-model="userInput" placeholder="Enter usernames separated by semicolon (;)" size="45" />
       <input class="px-1 border-2 rounded-lg bg-slate-200 hover:bg-slate-400 hover:clickable cursor-pointer" type="submit" />

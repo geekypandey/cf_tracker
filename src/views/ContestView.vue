@@ -10,11 +10,8 @@ const ranks = ref([])
 </script>
 
 <template>
-  <div class="ml-20 mb-2">
-    <search-user
-      @updateUsers="usernames = $event"
-      @updateRanks="ranks = $event"
-      ></search-user>
+  <div class="px-64 py-8">
+    <SearchUser @updateUsers="usernames = $event" @updateRanks="ranks = $event" />
     <display-user-info :usernames="usernames" :ranks="ranks"></display-user-info>
   </div>
   <div>
