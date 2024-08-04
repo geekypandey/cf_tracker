@@ -1,3 +1,15 @@
+<script setup>
+import { ref } from 'vue'
+
+import SearchUser from "@/components/SearchUser.vue";
+import DisplayUserInfo from "@/components/DisplayUserInfo.vue";
+import DisplayContests from "@/components/DisplayContests.vue";
+
+const usernames = ref([])
+const ranks = ref([])
+const showNewFeatures = ref(false)
+</script>
+
 <template>
   <header class="flex bg-slate-300 py-2">
     <span class="ml-96 text-3xl font-medium">CF-TRACKER</span>
@@ -19,26 +31,3 @@
     </div>
   </main>
 </template>
-
-
-<script>
-import SearchUser from "@/components/SearchUser.vue";
-import DisplayUserInfo from "@/components/DisplayUserInfo.vue";
-import DisplayContests from "@/components/DisplayContests.vue";
-
-export default {
-  name: "App",
-  components: {
-    SearchUser,
-    DisplayUserInfo,
-    DisplayContests,
-  },
-  data() {
-    return {
-      usernames: [],
-      ranks: [],
-      showNewFeatures: false,
-    };
-  },
-};
-</script>
