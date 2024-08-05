@@ -1,10 +1,14 @@
 <template>
-  <div class="flex bg-white justify-center py-2 rounded-md">
-    <form @submit.prevent="submitForm" class="flex border">
+  <div class="flex bg-white pl-16 py-4 rounded-md">
+    <form @submit.prevent="submitForm" class="flex space-x-4">
       <input class="px-1 py-1 border border-black rounded-md" type="text" v-model="userInput" placeholder="Enter usernames separated by semicolon (;)" size="45" />
-      <input class="px-1 border-2 rounded-lg bg-slate-200 hover:bg-slate-400 hover:clickable cursor-pointer" type="submit" />
-      <input type="checkbox" id="remember_me" value="true" v-model="rememberMe" />
-      <label for="div1">Remember Me?</label>
+      <button class="px-2 border-2 rounded-lg bg-slate-200 py-1">Add users</button>
+      <button class="px-2 border-2 rounded-lg bg-slate-200 py-1">Remove all users</button>
+      <div class="flex justify-center space-x-2">
+          <input type="checkbox" id="remember_me" value="true" v-model="rememberMe" />
+          <!-- Is there any alternative for adding flex to label? -->
+          <label for="remember_me" class="flex items-center">Remember Me?</label>
+      </div>
     </form>
     <p v-show="errors.length">
       <ul v-for="error in errors" :key="error">
