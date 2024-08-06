@@ -1,34 +1,26 @@
-<template>
-  <div class="flex bg-white pl-16 py-4 rounded-md">
-    <form @submit.prevent="submitForm" class="flex space-x-4">
-      <input class="px-1 py-1 border border-black rounded-md" type="text" v-model="userInput" placeholder="Enter usernames separated by semicolon (;)" size="45" />
-      <button class="px-2 border-2 rounded-lg bg-slate-200 py-1">Add users</button>
-      <button class="px-2 border-2 rounded-lg bg-slate-200 py-1">Remove all users</button>
-      <div class="flex justify-center space-x-2">
-          <input type="checkbox" id="remember_me" value="true" v-model="rememberMe" />
-          <!-- Is there any alternative for adding flex to label? -->
-          <label for="remember_me" class="flex items-center">Remember Me?</label>
-      </div>
-    </form>
-    <p v-show="errors.length">
-      <ul v-for="error in errors" :key="error">
-        <li style="color: red">{{ error }}</li>
-      </ul>
-    </p>
-  </div>
-</template>
+<script setup>
+import { ref, onMounted } from 'vue'
+import { getSavedUsernames } from '@/services/LocalStorageService.js'
 
-<script>
-export default {
-  data() {
-    return {
-      userInput: "",
-      ranks: [],
-      errors: [],
-      rememberMe: true,
-    };
-  },
+const userInput = ref(null)
+const ranks = ref([])
+const errors = ref([])
+const rememberMe = ref(true)
 
+const emit = defineEmits(['updateUsers', 'updateRank']);
+
+
+onMounted(() => {
+    const usernames = getSavedUsernames();
+    emit('updateUsers', usernames);
+})
+
+const submitForm = async () => {
+    console.log('submitted')
+}
+
+
+/* export default {
   emits: {
     updateUsers: null,
     updateRanks: null,
@@ -107,8 +99,29 @@ export default {
       this.ranks = [];
     }
   },
-};
+}; */
 </script>
+
+<template>
+  <div class="flex bg-white pl-16 py-4 rounded-md">
+    <form @submit.prevent="submitForm" class="flex space-x-4">
+      <input class="px-1 py-1 border border-black rounded-md" type="text" v-model="userInput" placeholder="Enter usernames separated by semicolon (;)" size="45" />
+      <button class="px-2 border-2 rounded-lg bg-slate-200 py-1">Add users</button>
+      <button class="px-2 border-2 rounded-lg bg-slate-200 py-1">Remove all users</button>
+      <div class="flex justify-center space-x-2">
+          <input type="checkbox" id="remember_me" value="true" v-model="rememberMe" />
+          <!-- Is there any alternative for adding flex to label? -->
+          <label for="remember_me" class="flex items-center">Remember Me?</label>
+      </div>
+    </form>
+    <p v-show="errors.length">
+      <ul v-for="error in errors" :key="error">
+        <li style="color: red">{{ error }}</li>
+      </ul>
+    </p>
+  </div>
+</template>
+
 
 <style scoped>
 input {
