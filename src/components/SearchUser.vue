@@ -19,6 +19,7 @@ const addUsernamesAndClear = async (usernames) => {
 
 <template>
   <div class="flex bg-white pl-16 py-4 rounded-md">
+
     <form class="flex space-x-4" @submit.prevent="addUsernamesAndClear(userInput)">
       <input class="px-1 py-1 border border-black rounded-md" type="text" v-model="userInput" placeholder="Enter usernames separated by semicolon (;)" size="45" />
       <button class="px-2 border-2 rounded-lg bg-slate-200 py-1">Add users</button>
@@ -29,6 +30,7 @@ const addUsernamesAndClear = async (usernames) => {
           <label for="remember_me" class="flex items-center">Remember Me?</label>
       </div>
     </form>
+
     <p v-show="errors.length">
       <ul v-for="error in errors" :key="error">
         <li style="color: red">{{ error }}</li>
