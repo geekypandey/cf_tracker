@@ -1,22 +1,11 @@
-<template>
-  <p v-if="usernames.length">
-    Usernames :
-    <span
-      v-for="(username, index) in usernames"
-      :style="{ color: colors[index] }"
-      :key="username"
-    >
-      {{ username }}
-      <span v-show="ranks[index]">[{{ ranks[index] }}]</span>
-      <span v-show="index != usernames.length - 1" style="color: black">
-        ||
-      </span>
-    </span>
-  </p>
-</template>
+<script setup>
+import { storeToRefs } from 'pinia'
 
-<script>
-export default {
+import { useUserStore } from '@/stores/users'
+
+const userStore = useUserStore()
+const { users } = storeToRefs(userStore)
+/* export default {
   props: {
     usernames: {
       type: Array,
@@ -63,5 +52,11 @@ export default {
       }
     },
   },
-};
+}; */
 </script>
+
+<template>
+    <div v-if="users">
+        {{ users }}
+    </div>
+</template>
