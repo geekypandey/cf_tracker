@@ -2,21 +2,27 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useUserStore = defineStore('users', () => {
-    const users = ref(new Set())
+    const users = ref([])
 
-    const addUser = (userInput) => {
-        userInput.split(';')
-            .map(user => user.trim())
-            .filter(user => user.length !== 0)
-            .forEach(user => users.value.add(user))
+    function isUserAlreadyPresent(username) {
+        return users.value.includes(username)
     }
 
-    const removeUser = (user) => {
-        users.value.delete(user)
+    function addUser(usernames) {
+        usernames.split(';')
+            .map(username => username.trim())
+            .filter(username => username.length !== 0)
+            .map(username => username.toLowerCase())
+            .filter(username => !isUserAlreadyPresent(username))
+            .forEach(username => users.value.push(username))
     }
 
-    const removeAllUsers = () => {
-        users.value.clear()
+    function removeUser(userToRemove) {
+        users.value = users.value.filter(user => user !== userToRemove)
+    }
+
+    function removeAllUsers() {
+        users.value = []
     }
 
     return { users, addUser, removeUser, removeAllUsers }
