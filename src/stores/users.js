@@ -1,20 +1,29 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 
+import { getUserInfo } from '@/services/CodeforcesApiService'
+
 export const useUserStore = defineStore('users', () => {
     const users = ref([])
 
-    function isUserAlreadyPresent(username) {
-        return users.value.includes(username)
+    function _isUserAlreadyPresent(username) {
+        return users.value.find(userInfo => userInfo.handle === username)
     }
 
-    function addUser(usernames) {
-        usernames.split(';')
+    function _extractUsernamesFromString(usernames) {
+        return usernames.split(';')
             .map(username => username.trim())
             .filter(username => username.length !== 0)
             .map(username => username.toLowerCase())
-            .filter(username => !isUserAlreadyPresent(username))
-            .forEach(username => users.value.push(username))
+            .filter(username => !_isUserAlreadyPresent(username))
+    }
+
+    async function addUser(usernames) {
+        // TODO: handle the case when you get one or more incorrect usernames
+        const usernameList = await _extractUsernamesFromString(usernames)
+        if (usernameList.length === 0) return
+        const userInfo = await getUserInfo(usernameList);
+        users.value.push(...userInfo)
     }
 
     function removeUser(userToRemove) {
