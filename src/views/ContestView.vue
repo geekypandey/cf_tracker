@@ -20,7 +20,9 @@ const ranks = ref([])
       <DisplayFilters />
     </div>
   </div>
-  <div class="px-6">
-    <DisplayContests :usernames="usernames" />
+  <div class="mx-4 bg-white rounded-md">
+    <div>
+      <DisplayContests :usernames="usernames" />
+    </div>
   </div>
 </template>
