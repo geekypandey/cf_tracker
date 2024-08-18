@@ -57,6 +57,12 @@ const { users } = storeToRefs(userStore)
 
 <template>
     <div v-if="users">
-        {{ users }}
+        <div class="flex space-x-4">
+            <div v-for="user in users" class="flex items-center justify-center space-x-1 bg-gray-600 rounded-full pr-2 text-gray-300">
+                <img :src="user.avatar" class="h-10 w-10 rounded-full"/>
+                <div class="px-1">{{ user.handle }}</div>
+                <button class="h-8 w-8 text-xl flex justify-center text-black" @click="userStore.removeUser(user.handle)">x</button>
+            </div>
+        </div>
     </div>
 </template>
