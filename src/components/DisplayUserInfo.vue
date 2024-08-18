@@ -17,11 +17,11 @@ const { users } = storeToRefs(userStore)
 
 <template>
     <div v-if="users">
-        <div class="flex space-x-4">
+        <div class="flex flex-wrap space-x-4">
             <div v-for="user in users" class="flex items-center justify-center space-x-1 bg-gray-600 rounded-full pr-2 text-gray-300">
-                <img :src="user.avatar" class="h-10 w-10 rounded-full object-cover"/>
+                <img :src="user.avatar" class="h-8 w-8 rounded-full object-cover"/>
                 <div class="px-1">{{ user.handle }}</div>
-                <button class="h-8 w-8 text-xl flex justify-center text-black" @click="userStore.removeUser(user.handle)">x</button>
+                <button class="text-xl flex justify-center text-black" @click="userStore.removeUser(user.handle)">x</button>
             </div>
         </div>
     </div>
