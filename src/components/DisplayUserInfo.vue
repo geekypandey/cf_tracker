@@ -5,54 +5,14 @@ import { useUserStore } from '@/stores/users'
 
 const userStore = useUserStore()
 const { users } = storeToRefs(userStore)
-/* export default {
-  props: {
-    usernames: {
-      type: Array,
-      required: true,
-      default: function () {
-        return [];
-      },
-    },
-    ranks: {
-      type: Array,
-      required: true,
-      default: function () {
-        return [];
-      },
-    },
-  },
 
-  data() {
-    return {
-      colors: [],
-    };
-  },
-
-  watch: {
-    ranks() {
-      this.colors = [];
-      const colorMap = new Map([
-        ["newbie", "gray"],
-        ["pupil", "rgb(136, 204, 34)"],
-        ["apprentice", "green"],
-        ["specialist", "rgb(3, 168, 158)"],
-        ["expert", "blue"],
-        ["canditate_master", "rgb(170, 0, 170)"],
-        ["master", "rgb(255, 140, 0)"],
-      ]);
-      for (let rank of this.ranks) {
-        if (colorMap.has(rank)) {
-          this.colors.push(colorMap.get(rank));
-        } else if (rank) {
-          this.colors.push("red");
-        } else {
-          this.colors.push("");
-        }
-      }
-    },
-  },
-}; */
+/* ["newbie", "gray"],
+["pupil", "rgb(136, 204, 34)"],
+["apprentice", "green"],
+["specialist", "rgb(3, 168, 158)"],
+["expert", "blue"],
+["canditate_master", "rgb(170, 0, 170)"],
+["master", "rgb(255, 140, 0)"], */
 </script>
 
 <template>
