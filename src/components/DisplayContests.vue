@@ -1,15 +1,3 @@
-<template>
-  <div v-if="!contests.length" style="text-align: center">Loading.....</div>
-  <table class="table-auto" v-else>
-    <table-row
-      v-for="contest in filteredContests"
-      :contest="contest"
-      :singleUser="usernames.length === 1"
-      :key="contest.id"
-    ></table-row>
-  </table>
-</template>
-
 <script>
 import DisplayFilters from "@/components/DisplayFilters.vue";
 import TableRow from "@/components/TableRow.vue";
@@ -191,9 +179,29 @@ export default {
 };
 </script>
 
+<template>
+  <div v-if="!contests.length" style="text-align: center">Loading.....</div>
+  <table class="w-full">
+      <tr v-for="(contest, idx) in filteredContests" class="border border-black h-12">
+          <td class="border border-black py-2 text-center">{{ idx + 1 }}</td>
+          <td class="border border-black py-2 text-left pl-2">{{ contest.name }}</td>
+          <td v-for="problem in contest.problems" class="border border-black py-2 w-10 text-center">
+              <a :href="problem.link" target="_blank">
+                  {{ problem.index }}
+              </a>
+          </td>
+      </tr>
+  </table>
+  <!-- <table class="table-auto" v-else> -->
+  <!--   <table-row -->
+  <!--     v-for="contest in filteredContests" -->
+  <!--     :contest="contest" -->
+  <!--     :singleUser="usernames.length === 1" -->
+  <!--     :key="contest.id" -->
+  <!--   ></table-row> -->
+  <!-- </table> -->
+</template>
+
 <style scoped>
-table {
-  border-collapse: collapse;
-}
 </style>
 
