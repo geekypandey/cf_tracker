@@ -18,7 +18,7 @@ const addUsernamesAndClear = async (usernames) => {
 </script>
 
 <template>
-  <div class="flex bg-white pl-16 py-4 rounded-md">
+  <div class="flex">
 
     <form class="flex space-x-4" @submit.prevent="addUsernamesAndClear(userInput)">
       <input class="px-1 py-1 border border-black rounded-md" type="text" v-model="userInput" placeholder="Enter usernames separated by semicolon (;)" size="45" />
