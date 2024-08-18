@@ -27,7 +27,7 @@ export const useUserStore = defineStore('users', () => {
     }
 
     function removeUser(userToRemove) {
-        users.value = users.value.filter(user => user !== userToRemove)
+        users.value = users.value.filter(user => user.handle !== userToRemove)
     }
 
     function removeAllUsers() {
