@@ -26,7 +26,7 @@ const showNewFeatures = ref(false);
       </div>
     </div>
   </header>
-  <main class="bg-gray-200 h-screen">
+  <main class="bg-gray-200">
       <ContestView />
   </main>
 </template>
