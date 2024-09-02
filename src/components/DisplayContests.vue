@@ -187,9 +187,12 @@ export default {
     data.sort((a, b) => b.startTimeSeconds - a.startTimeSeconds); // change this sort function
     let contests = [];
     for (let d of data) {
-      var c = new Contest(d.contestId, d.name, d.div);
-      for (let problem of d.problems) {
-        c.addProblem(problem.index, problem.solvedCount);
+      if (d.phase === 'BEFORE') continue;
+      var c = new Contest(d.id, d.name, d.div);
+      if (d.problems) {
+          for (let problem of d.problems) {
+            c.addProblem(problem.index, problem.solvedCount);
+          }
       }
       contests.push(c);
     }
