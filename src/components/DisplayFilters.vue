@@ -5,6 +5,8 @@
   <label for="div2">Div 2</label>
   <input type="checkbox" id="div3" value="3" v-model="selected" />
   <label for="div3">Div 3</label>
+  <input type="checkbox" id="div4" value="4" v-model="selected" />
+  <label for="div4">Div 4</label>
   <input type="checkbox" id="educational" value="E" v-model="selected" />
   <label for="educational">Educational Rounds</label>
 
