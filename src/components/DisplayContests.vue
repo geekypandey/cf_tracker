@@ -5,12 +5,13 @@ import ContestsData from "@/data/contests.json";
 
 // Need to move this out to separate file [Problem and Contest]
 class Problem {
-  constructor(contest_id, index, solvedCount) {
+  constructor(contest_id, index, solvedCount, name) {
     this.index = index;
     this.link =
       "https://codeforces.com/contest/" + contest_id + "/problem/" + index;
     this.solved = 0; // poor naming
     this.solvedCount = solvedCount;
+    this.name = name;
   }
 
   solved(value) {
@@ -29,8 +30,8 @@ class Contest {
     this.passive = false;
   }
 
-  addProblem(index, solvedCount) {
-    this.problems.push(new Problem(this.id, index, solvedCount));
+  addProblem(index, solvedCount, name) {
+    this.problems.push(new Problem(this.id, index, solvedCount, name));
   }
 
   participated() {
@@ -173,7 +174,7 @@ export default {
       if (d.problems) {
           d.problems.sort((a, b) => a.index.localeCompare(b.index))
           for (let problem of d.problems) {
-            c.addProblem(problem.index, problem.solvedCount);
+            c.addProblem(problem.index, problem.solvedCount, problem.name);
           }
       }
       contests.push(c);
@@ -187,11 +188,13 @@ export default {
   <div v-if="!contests.length" style="text-align: center">Loading.....</div>
   <table class="w-full">
       <tr v-for="(contest, idx) in filteredContests" class="border border-black h-12">
-          <td class="border border-black py-2 text-center">{{ idx + 1 }}</td>
-          <td class="border border-black py-2 text-left pl-2">{{ contest.name }}</td>
+          <td class="border border-black py-2 text-center">{{ idx + 1 }}.</td>
+          <td class="border border-black py-2 text-left pl-2">
+              <a :href="contest.link" target="_blank">{{ contest.name }}</a>
+          </td>
           <td v-for="problem in contest.problems" class="border border-black py-2 w-10 text-center">
               <a :href="problem.link" target="_blank">
-                  {{ problem.index }}
+                  {{ problem.index }}. {{ problem.name }}
               </a>
           </td>
       </tr>
