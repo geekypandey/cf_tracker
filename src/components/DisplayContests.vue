@@ -190,6 +190,7 @@ export default {
       if (d.phase === 'BEFORE') continue;
       var c = new Contest(d.id, d.name, d.div);
       if (d.problems) {
+          d.problems.sort((a, b) => a.index.charCodeAt(0) - b.index.charCodeAt(0))
           for (let problem of d.problems) {
             c.addProblem(problem.index, problem.solvedCount);
           }
