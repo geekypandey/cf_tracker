@@ -1,6 +1,5 @@
 <script>
 import DisplayFilters from "@/components/DisplayFilters.vue";
-import TableRow from "@/components/TableRow.vue";
 import ContestsData from "@/data/contests.json";
 
 // Need to move this out to separate file [Problem and Contest]
@@ -42,7 +41,6 @@ class Contest {
 export default {
   components: {
     DisplayFilters,
-    TableRow,
   },
 
   props: {
