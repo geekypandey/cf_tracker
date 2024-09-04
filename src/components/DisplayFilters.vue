@@ -63,6 +63,10 @@ const { selectedDivisions } = storeToRefs(filterStore)
             <label for="div3">Div 3</label>
         </div>
         <div class="flex space-x-1">
+            <input type="checkbox" id="div4" value="4" v-model="selectedDivisions" />
+            <label for="div4">Div 4</label>
+        </div>
+        <div class="flex space-x-1">
             <input type="checkbox" id="educational" value="E" v-model="selectedDivisions" />
             <label for="educational">Educational Rounds</label>
         </div>
