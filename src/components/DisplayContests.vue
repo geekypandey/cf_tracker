@@ -1,42 +1,8 @@
 <script>
 import DisplayFilters from "@/components/DisplayFilters.vue";
 import ContestsData from "@/data/contests.json";
-
-// Need to move this out to separate file [Problem and Contest]
-class Problem {
-  constructor(contest_id, index, solvedCount, name) {
-    this.index = index;
-    this.link =
-      "https://codeforces.com/contest/" + contest_id + "/problem/" + index;
-    this.solved = 0; // poor naming
-    this.solvedCount = solvedCount;
-    this.name = name;
-  }
-
-  solved(value) {
-    if (this.solved !== 1) this.solved = value;
-  }
-}
-
-class Contest {
-  constructor(id, name, div) {
-    this.id = id;
-    this.name = name;
-    this.link = "https://codeforces.com/contest/" + this.id;
-    this.problems = [];
-    this.div = div;
-    this.active = false;
-    this.passive = false;
-  }
-
-  addProblem(index, solvedCount, name) {
-    this.problems.push(new Problem(this.id, index, solvedCount, name));
-  }
-
-  participated() {
-    this.participated = true;
-  }
-}
+import Problem from '@/models/Problem'
+import Contest from '@/models/Contest'
 
 export default {
   components: {
