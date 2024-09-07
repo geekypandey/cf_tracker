@@ -197,14 +197,6 @@ export default {
           </td>
       </tr>
   </table>
-  <!-- <table class="table-auto" v-else> -->
-  <!--   <table-row -->
-  <!--     v-for="contest in filteredContests" -->
-  <!--     :contest="contest" -->
-  <!--     :singleUser="usernames.length === 1" -->
-  <!--     :key="contest.id" -->
-  <!--   ></table-row> -->
-  <!-- </table> -->
 </template>
 
 <style scoped>
