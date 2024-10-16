@@ -156,10 +156,12 @@ export default {
           <td class="border border-black py-2 text-left pl-2">
               <a :href="contest.link" target="_blank">{{ contest.name }}</a>
           </td>
-          <td v-for="problem in contest.problems" class="border border-black py-2 w-10 text-center">
-              <a :href="problem.link" target="_blank">
-                  {{ problem.index }}. {{ problem.name }}
-              </a>
+          <td class="grid grid-cols-6 p-0">
+              <div v-for="problem in contest.problems" class="m-0 flex items-center justify-center text-center h-12 border border-black hover:bg-gray-200 hover:cursor-pointer">
+                  <a :href="problem.link" target="_blank">
+                      {{ problem.index }}. {{ problem.name }}
+                  </a>
+              </div>
           </td>
       </tr>
   </table>
