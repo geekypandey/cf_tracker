@@ -152,7 +152,7 @@ export default {
   <div v-if="!contests.length" style="text-align: center">Loading.....</div>
   <table class="w-full">
       <tr v-for="(contest, idx) in filteredContests" class="border border-black h-12">
-          <td class="border border-black py-2 text-center">{{ idx + 1 }}.</td>
+          <td class="border border-black py-2 text-center">{{ idx + 1 }}</td>
           <td class="border border-black py-2 text-left pl-2">
               <a :href="contest.link" target="_blank">{{ contest.name }}</a>
           </td>
