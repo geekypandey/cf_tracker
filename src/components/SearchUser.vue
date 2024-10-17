@@ -14,7 +14,7 @@ const rememberMe = ref(true)
 
 const userStore = useUserStore()
 
-const addUsernamesAndClear = async (usernames) => {
+const addUsernamesAndClearInput = async (usernames) => {
     userStore.addUser(usernames)
     userInput.value = ''
 }
@@ -24,7 +24,7 @@ const addUsernamesAndClear = async (usernames) => {
 <template>
   <div class="flex">
 
-    <form class="flex space-x-4" @submit.prevent="addUsernamesAndClear(userInput)">
+    <form class="flex space-x-4" @submit.prevent="addUsernamesAndClearInput(userInput)">
       <input id="userInput" class="px-1 py-1 border border-black rounded-md" type="text" v-model="userInput" placeholder="Enter usernames separated by semicolon (;)" size="45" />
       <button class="px-2 border-2 rounded-lg bg-slate-200 py-1">Add users</button>
       <button class="px-2 border-2 rounded-lg bg-slate-200 py-1" type="button" @click="userStore.removeAllUsers">Remove all users</button>
