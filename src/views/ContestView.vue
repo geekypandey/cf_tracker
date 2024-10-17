@@ -13,16 +13,12 @@ const ranks = ref([])
 <template>
   <div>
     <div class="mx-64 my-8 bg-white p-4 rounded-md">
-      <div>
-        <SearchUser @updateUsers="usernames = $event" @updateRanks="ranks = $event" />
-      </div>
+      <SearchUser @updateUsers="usernames = $event" @updateRanks="ranks = $event" />
       <DisplayUserInfo :usernames="usernames" :ranks="ranks" />
       <DisplayFilters />
     </div>
   </div>
   <div class="mx-4 bg-white rounded-md">
-    <div>
-      <DisplayContests :usernames="usernames" />
-    </div>
+    <DisplayContests :usernames="usernames" />
   </div>
 </template>
