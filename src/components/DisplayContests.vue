@@ -157,7 +157,7 @@ export default {
               <a :href="contest.link" target="_blank">{{ contest.name }}</a>
           </td>
           <td class="grid grid-cols-6 p-0">
-              <div v-for="problem in contest.problems" class="m-0 flex items-center justify-center text-center h-12 border border-black hover:bg-gray-200 hover:cursor-pointer">
+              <div v-for="problem in contest.problems" class="m-1 p-1 rounded flex items-center justify-center text-center h-12 border border-black hover:bg-gray-200 hover:cursor-pointer">
                   <a :href="problem.link" target="_blank">
                       {{ problem.index }}. {{ problem.name }}
                   </a>
