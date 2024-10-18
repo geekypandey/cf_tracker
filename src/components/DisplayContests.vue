@@ -1,19 +1,31 @@
 <script setup>
+import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
-import ContestsData from "@/data/contests.json";
 import { useFilterStore } from '@/stores/filters'
+
+import ContestsData from "@/data/contests.json";
+import Contest from '@/models/Contest'
 
 const filterStore = useFilterStore()
 const { selectedDivisions } = storeToRefs(filterStore)
 
-const contests = ContestsData.contests;
+const contests = computed(() => {
+    return ContestsData.contests.map((c) => {
+        const contest = new Contest(c);
+        contest.display = true;
+        if (selectedDivisions.value.length != 0) {
+            contest.display = selectedDivisions.value.includes(contest.division);
+        }
+        return contest;
+    });
+})
 </script>
 
 <template>
   <div v-if="!contests.length" style="text-align: center">Loading.....</div>
   <table class="w-full">
-      <tr v-for="(contest, idx) in contests" class="border border-black h-12">
-          <td class="border border-black py-2 text-center font-mono">{{ idx + 1 }}</td>
+      <tr v-for="(contest, idx) in contests" class="border border-black h-12" v-show="contest.display">
+          <td class="border border-black py-2 text-center font-mono w-2">{{ idx + 1 }}</td>
           <td class="border border-black py-2 pl-2 text-center">
               <a :href="contest.link" target="_blank" class="font-mono">{{ contest.name }}</a>
           </td>
