@@ -1,14 +1,12 @@
 export default class Problem {
-  constructor(contest_id, index, solvedCount, name) {
-    this.index = index;
-    this.link =
-      "https://codeforces.com/contest/" + contest_id + "/problem/" + index;
-    this.solved = 0; // poor naming
-    this.solvedCount = solvedCount;
-    this.name = name;
-  }
-
-  solved(value) {
-    if (this.solved !== 1) this.solved = value;
+  constructor(problem) {
+    this.index = problem.index;
+    this.name = problem.name;
+    this.link = `https://codeforces.com/contest/${problem.contestId}/problem/${problem.index}`;
+    this.solvedCount = problem.solvedCount;
+    this.points = problem.points;
+    this.rating = problem.rating;
+    this.tags = problem.tags ? problem.tags : [];
+    this.type = problem.type;
   }
 }

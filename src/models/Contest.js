@@ -20,16 +20,10 @@ export default class Contest {
   _addProblems(problems) {
       if (problems == undefined) return;
       // TODO: sort problem based on their indexes
-      for (const problem of problems) {
-        this.addProblem(problem.index, problem.solvedCount, problem.name);
-      }
+      problems.forEach(problem => this.addProblem(problem))
   }
 
-  addProblem(index, solvedCount, name) {
-    this.problems.push(new Problem(this.id, index, solvedCount, name));
-  }
-
-  participated() {
-    this.participated = true;
+  addProblem(problem) {
+    this.problems.push(new Problem(problem));
   }
 }
