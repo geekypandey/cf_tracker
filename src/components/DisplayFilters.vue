@@ -53,5 +53,4 @@ const { selectedDivisions } = storeToRefs(filterStore)
             <label for="attempted">Attempted Any</label>
         </div>
     </div>
-  {{ selectedDivisions }}
 </template>
