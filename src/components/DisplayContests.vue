@@ -9,15 +9,16 @@ import Contest from '@/models/Contest'
 const filterStore = useFilterStore()
 const { selectedDivisions } = storeToRefs(filterStore)
 
+const contestData = ContestsData.contests.filter(c => c.phase === 'FINISHED')
+                        .filter(c => c.problems != undefined)
+                        .map(c => new Contest(c));
+
+
 const contests = computed(() => {
-    return ContestsData.contests.map((c) => {
-        const contest = new Contest(c);
-        contest.display = true;
-        if (selectedDivisions.value.length != 0) {
-            contest.display = selectedDivisions.value.includes(contest.division);
-        }
-        return contest;
-    });
+    if (selectedDivisions.value.length != 0) {
+        return contestData.filter(c => selectedDivisions.value.includes(c.division));
+    }
+    return contestData;
 })
 </script>
 
@@ -25,8 +26,8 @@ const contests = computed(() => {
   <div v-if="!contests.length" style="text-align: center">Loading.....</div>
   <table class="w-full">
       <tr v-for="(contest, idx) in contests" class="border border-black h-12" v-show="contest.display">
-          <td class="border border-black py-2 text-center font-mono w-2">{{ idx + 1 }}</td>
-          <td class="border border-black py-2 pl-2 text-center">
+          <td class="border border-black py-2 text-center font-mono">{{ idx + 1 }}</td>
+          <td class="border border-black py-2 pl-2 text-center hover:bg-gray-200 hover:cursor-pointer">
               <a :href="contest.link" target="_blank" class="font-mono">{{ contest.name }}</a>
           </td>
           <td class="grid grid-cols-6 p-0 group">
