@@ -1,10 +1,10 @@
 <script setup>
 import { ref } from 'vue'
 
-import SearchUser from "@/components/SearchUser.vue";
-import DisplayUserInfo from "@/components/DisplayUserInfo.vue";
-import DisplayContests from "@/components/DisplayContests.vue";
-import DisplayFilters from '@/components/DisplayFilters.vue'
+import UserSearch from "@/components/UserSearch.vue";
+import UserInfo from "@/components/UserInfo.vue";
+import ContestsTable from "@/components/ContestsTable.vue";
+import ContestFilters from '@/components/ContestFilters.vue'
 
 const usernames = ref([])
 const ranks = ref([])
@@ -13,12 +13,12 @@ const ranks = ref([])
 <template>
   <div>
     <div class="mx-64 my-8 bg-white p-4 rounded-md">
-      <SearchUser @updateUsers="usernames = $event" @updateRanks="ranks = $event" />
-      <DisplayUserInfo :usernames="usernames" :ranks="ranks" />
-      <DisplayFilters />
+      <UserSearch @updateUsers="usernames = $event" @updateRanks="ranks = $event" />
+      <UserInfo :usernames="usernames" :ranks="ranks" />
+      <ContestFilters />
     </div>
   </div>
   <div class="mx-4 bg-white rounded-md">
-    <DisplayContests :usernames="usernames" />
+    <ContestsTable :usernames="usernames" />
   </div>
 </template>
