@@ -7,7 +7,8 @@ export default {
   theme: {
     extend: {
         colors: {
-            'blue-header': '#001272',
+            'solved-green': '#7cf07c',
+            'unsolved-red': '#f02a00',
         },
     },
   },
