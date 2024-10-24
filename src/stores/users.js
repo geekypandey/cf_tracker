@@ -1,7 +1,7 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 
-import { getUserInfo } from '@/services/CodeforcesApiService'
+import { getUserInfo, getUserSubmissions } from '@/services/CodeforcesApiService'
 
 export const useUserStore = defineStore('users', () => {
     const users = ref([])
@@ -23,6 +23,10 @@ export const useUserStore = defineStore('users', () => {
         const usernameList = await _extractUsernamesFromString(usernames)
         if (usernameList.length === 0) return
         const userInfo = await getUserInfo(usernameList);
+        for (const user of userInfo) {
+            const userSubmissions = await getUserSubmissions(user.handle)
+            user.submissions = userSubmissions;
+        }
         users.value.push(...userInfo)
     }
 
