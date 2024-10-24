@@ -54,7 +54,7 @@ const contests = computed(() => {
                   <a :href="item.link" target="_blank" class="font-mono text-md">{{ item.name }}</a>
               </div>
               <div class="flex space-x-6 p-0">
-                  <div class="flex flex-col items-center text-center" v-for="problem in item.problems">
+                  <div class="flex flex-col items-center text-center border border-black rounded-md w-20" v-for="problem in item.problems">
                       <span class="w-12 hover:underline hover:cursor-pointer">
                           <a :href="problem.link" target="_blank" class="font-mono text-lg">{{ problem.index }}</a>
                       </span>
