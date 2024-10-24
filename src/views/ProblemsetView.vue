@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import ContestsData from '@/data/contests.json'
+import ProblemCard from '@/components/ProblemCard.vue'
 
 const contests = ref(ContestsData.contests)
 
@@ -14,9 +15,9 @@ console.log(problemSet)
 </script>
 
 <template>
-    <div class="grid grid-cols-6 border border-green-600">
-        <div v-for="problem in problemSet" class="flex items-center bg-white justify-center h-12 m-1 rounded-md border border-black">
-            {{ problem ? problem.name : '' }}
+    <div class="p-12">
+        <div class="grid grid-cols-4 gap-4">
+            <ProblemCard :problem="problem" v-for="problem in problemSet" />
         </div>
     </div>
 </template>
