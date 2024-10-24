@@ -24,23 +24,45 @@ const contests = computed(() => {
 
 <template>
   <div v-if="!contests.length" style="text-align: center">Loading.....</div>
-  <table class="w-full">
-      <tr v-for="(contest, idx) in contests" class="border border-black h-12" v-show="contest.display">
-          <td class="border border-black py-2 text-center font-mono">{{ idx + 1 }}</td>
-          <td class="border border-black py-2 pl-2 text-center hover:bg-gray-200 hover:cursor-pointer">
-              <a :href="contest.link" target="_blank" class="font-mono">{{ contest.name }}</a>
-          </td>
-          <td class="grid grid-cols-6 p-0 group">
-              <div v-for="problem in contest.problems" class="m-1 p-1 rounded flex flex-col space-y-1 items-center justify-center text-center border border-black hover:bg-gray-200 hover:cursor-pointer">
-                  <a target="_blank">
-                      <span class="font-mono">{{ problem.index }}. {{ problem.name }}</span>
-                  </a>
-                  <div class="flex space-x-6 font-mono">
-                      <span class="font-bold">[{{ problem.solvedCount }}]</span>
-                  </div>
-                  <!-- <span class="italic font-mono">[{{ problem.points }}]</span> -->
+
+  <DynamicScroller
+    class="scroller"
+    :items="contests"
+    :item-size="72"
+    key-field="id"
+  >
+   <template v-slot="{ item, index }">
+      <DynamicScrollerItem
+        :item="item"
+        :data-index="index"
+      >
+          <div class="flex space-x-2 w-full p-2 items-center pl-4">
+              <div>{{ index + 1 }} </div>
+              <div class="py-2 text-center hover:bg-gray-200 hover:cursor-pointer">
+                  <a :href="item.link" target="_blank" class="font-mono">{{ item.name }}</a>
               </div>
-          </td>
-      </tr>
-  </table>
+              <div class="flex space-x-6">
+                  <div class="flex flex-col items-center text-center" v-for="problem in item.problems">
+                      <span class="w-12"> {{ problem.index }} </span>
+                      <span class="text-sm text-gray-500"> {{ problem.solvedCount }} </span>
+                  </div>
+              </div>
+          </div>
+          <hr class="w-full">
+      </DynamicScrollerItem>
+    </template>
+  </DynamicScroller>
 </template>
+
+<style scoped>
+.scroller {
+  height: 100%;
+}
+
+.user {
+  height: 32%;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+}
+</style>
