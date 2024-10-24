@@ -11,19 +11,26 @@ export default class Contest {
     this.active = false;
     this.passive = false;
 
-    this.display = true;
-    this.isSolved = false;
+    this.contestants = new Set();
+    this.participants = new Set();
     this.problems = [];
     this._addProblems(contest.problems);
   }
 
   _addProblems(problems) {
       if (problems == undefined) return;
-      // TODO: sort problem based on their indexes
       problems.forEach(problem => this.addProblem(problem))
   }
 
   addProblem(problem) {
     this.problems.push(new Problem(problem));
+  }
+
+  get isContestant() {
+      return this.contestants.size > 0;
+  }
+
+  get isParticipant() {
+      return this.participants.size > 0;
   }
 }
