@@ -26,8 +26,8 @@ const addUsernamesAndClearInput = async (usernames) => {
 
     <form class="flex space-x-4" @submit.prevent="addUsernamesAndClearInput(userInput)">
       <input id="userInput" class="px-1 py-1 border border-black rounded-md" type="text" v-model="userInput" placeholder="Enter usernames separated by semicolon (;)" size="45" />
-      <button class="px-2 border-2 rounded-lg bg-slate-200 py-1">Add users</button>
-      <button class="px-2 border-2 rounded-lg bg-slate-200 py-1" type="button" @click="userStore.removeAllUsers">Remove all users</button>
+      <button class="px-2 rounded-lg bg-slate-200 py-1">Add users</button>
+      <button class="px-2 rounded-lg bg-slate-200 py-1" type="button" @click="userStore.removeAllUsers">Remove all users</button>
       <div class="flex justify-center space-x-2">
           <input type="checkbox" id="remember_me" value="true" v-model="rememberMe" />
           <!-- Is there any alternative for adding flex to label? -->
