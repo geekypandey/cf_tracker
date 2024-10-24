@@ -26,7 +26,7 @@ const contests = computed(() => {
   <div v-if="!contests.length" style="text-align: center">Loading.....</div>
 
   <DynamicScroller
-    class="scroller"
+    class="h-full"
     :items="contests"
     :item-size="72"
     key-field="id"
@@ -38,12 +38,14 @@ const contests = computed(() => {
       >
           <div class="flex space-x-2 w-full p-2 items-center pl-4">
               <div>{{ index + 1 }} </div>
-              <div class="py-2 text-center hover:bg-gray-200 hover:cursor-pointer">
+              <div class="py-2 text-center hover:underline hover:cursor-pointer">
                   <a :href="item.link" target="_blank" class="font-mono">{{ item.name }}</a>
               </div>
               <div class="flex space-x-6">
                   <div class="flex flex-col items-center text-center" v-for="problem in item.problems">
-                      <span class="w-12"> {{ problem.index }} </span>
+                      <span class="w-12 hover:underline hover:cursor-pointer">
+                          <a :href="problem.link" target="_blank" class="font-mono">{{ problem.index }}</a>
+                      </span>
                       <span class="text-sm text-gray-500"> {{ problem.solvedCount }} </span>
                   </div>
               </div>
@@ -53,16 +55,3 @@ const contests = computed(() => {
     </template>
   </DynamicScroller>
 </template>
-
-<style scoped>
-.scroller {
-  height: 100%;
-}
-
-.user {
-  height: 32%;
-  padding: 0 12px;
-  display: flex;
-  align-items: center;
-}
-</style>
