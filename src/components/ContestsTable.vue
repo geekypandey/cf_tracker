@@ -3,34 +3,14 @@ import { computed, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useFilterStore } from '@/stores/filters'
 import { useUserStore } from '@/stores/users'
+import { useContestStore } from '@/stores/contests'
 
 import ContestsTableRow from '@/components/ContestsTableRow.vue'
 import ContestsData from "@/data/contests.json";
 import Contest from '@/models/Contest'
 
-const filterStore = useFilterStore()
-const { selectedDivisions } = storeToRefs(filterStore)
-
-const userStore = useUserStore()
-const { users } = storeToRefs(userStore)
-console.log(users)
-
-const contestData = ContestsData.contests.filter(c => c.phase === 'FINISHED')
-                        .filter(c => c.problems != undefined)
-                        .map(c => new Contest(c));
-
-
-const contests = computed(() => {
-    let filteredContests = contestData;
-    if (selectedDivisions.value.length != 0) {
-        filteredContests = filteredContests.filter(c => selectedDivisions.value.includes(c.division));
-    }
-    if (users.value.length != 0) {
-        filteredContests.forEach(contest => contest.solvedBy.push(users.value))
-        // TODO: get user submissions here and update the problems solvedBy component
-    }
-    return filteredContests;
-})
+const contestStore = useContestStore()
+const { contests } = storeToRefs(contestStore)
 </script>
 
 <template>
