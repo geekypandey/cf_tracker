@@ -21,3 +21,13 @@ export const getUserInfo = async (usernames) => {
     }
     return [];
 }
+
+export const getUserSubmissions = async (username) => {
+    const response = await getCodeforcesClient('/user.status', {
+        handle: username,
+    })
+    if (response.status === 200) {
+        return response.data.result;
+    }
+    return [];
+}
