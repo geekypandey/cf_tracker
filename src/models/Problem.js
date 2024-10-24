@@ -8,5 +8,6 @@ export default class Problem {
     this.rating = problem.rating;
     this.tags = problem.tags ? problem.tags : [];
     this.type = problem.type;
+    this.solvedBy = [];
   }
 }
