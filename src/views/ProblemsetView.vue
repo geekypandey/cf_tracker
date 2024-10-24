@@ -10,8 +10,6 @@ const problemSet = computed(() => {
         .map(contest => contest.problems)
         .flat()
 })
-
-console.log(problemSet)
 </script>
 
 <template>
