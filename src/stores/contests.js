@@ -11,14 +11,16 @@ import ContestsData from '@/data/contests.json'
 
 export const useContestStore = defineStore('contests', () => {
     const filterStore = useFilterStore()
-    const { selectedDivisions } = storeToRefs(filterStore)
+    const { selectedDivisions, participantType } = storeToRefs(filterStore)
 
     const userStore = useUserStore()
     const { users } = storeToRefs(userStore)
 
-    const contestData = ContestsData.contests.filter(c => c.phase === 'FINISHED')
+    const contestData = new Map();
+    ContestsData.contests.filter(c => c.phase === 'FINISHED')
                         .filter(c => c.problems != undefined)
-                        .map(c => new Contest(c));
+                        .map(c => new Contest(c))
+                        .forEach(c => contestData.set(c.id, c));
 
     const contests = computed(() => {
         const filterFunctions = [_filterBasedOnDivisions]
@@ -26,8 +28,13 @@ export const useContestStore = defineStore('contests', () => {
 
         let filteredContests = contestData;
 
-        filteredContests = _filterBasedOnDivisions(filteredContests)
         filteredContests = _addUserAttemptInformation(filteredContests)
+
+        filteredContests = Array.from(filteredContests, (value) => value[1]);
+
+        filteredContests = _filterBasedOnDivisions(filteredContests)
+        filteredContests = _filterOnParticipantType(filteredContests)
+
         return filteredContests;
     })
 
@@ -38,8 +45,22 @@ export const useContestStore = defineStore('contests', () => {
         return contests
     }
 
+    function _filterOnParticipantType(contests) {
+        if (participantType.value === 'contestant') return contests.filter(contest => contest.isContestant);
+        else if (participantType.value === 'participant') return contests.filter(contest => contest.isParticipant);
+        return contests;
+    }
+
     function _addUserAttemptInformation(contests) {
-        if (users.value.length == 0) {
+        for (const user of users.value) {
+            for (const submission of user.submissions) {
+                if (!contests.has(submission.contestId)) continue;
+                const participantType = submission.author.participantType;
+                contests.get(submission.contestId).participants.add(user.handle);
+                if (participantType === 'CONTESTANT') {
+                    contests.get(submission.contestId).contestants.add(user.handle);
+                }
+            }
         }
         return contests;
     }
