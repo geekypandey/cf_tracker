@@ -3,5 +3,7 @@ import { defineStore } from 'pinia'
 
 export const useFilterStore = defineStore('filter', () => {
     const selectedDivisions = ref([])
-    return { selectedDivisions };
+    // default participant is any
+    const participantType = ref('any')
+    return { selectedDivisions, participantType };
 })

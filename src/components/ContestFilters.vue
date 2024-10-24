@@ -6,13 +6,13 @@ import { useUserStore } from '@/stores/users'
 import { useFilterStore } from '@/stores/filters'
 
 const selected = ref([])
-const picked = ref('all')
+const picked = ref('any')
 
 const userStore = useUserStore()
 const { users } = storeToRefs(userStore)
 
 const filterStore = useFilterStore()
-const { selectedDivisions } = storeToRefs(filterStore)
+const { selectedDivisions, participantType } = storeToRefs(filterStore)
 </script>
 
 <template>
@@ -41,15 +41,15 @@ const { selectedDivisions } = storeToRefs(filterStore)
 
     <div v-show="users.length" class="flex space-x-2">
         <div class="flex space-x-1">
-            <input type="radio" name="whichContests" value="all" v-model="picked" />
+            <input type="radio" name="whichContests" value="any" v-model="participantType" />
             <label for="all">All</label>
         </div>
         <div class="flex space-x-1">
-            <input type="radio" name="whichContests" value="active" v-model="picked" />
+            <input type="radio" name="whichContests" value="contestant" v-model="participantType" />
             <label for="participated">Contests Participated</label>
         </div>
         <div class="flex space-x-1">
-            <input type="radio" name="whichContests" value="passive" v-model="picked" />
+            <input type="radio" name="whichContests" value="participant" v-model="participantType" />
             <label for="attempted">Attempted Any</label>
         </div>
     </div>
