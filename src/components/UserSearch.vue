@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useUserStore } from '@/stores/users.js'
 import { getSavedUsernames } from '@/services/LocalStorageService.js'
-import { useUserStore } from '@/stores/users'
 
 onMounted(() => {
     document.querySelector('#userInput').focus()
@@ -15,7 +15,7 @@ const rememberMe = ref(true)
 const userStore = useUserStore()
 
 const addUsernamesAndClearInput = async (usernames) => {
-    userStore.addUser(usernames)
+    userStore.addUser(usernames, rememberMe.value)
     userInput.value = ''
 }
 
