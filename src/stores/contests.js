@@ -64,6 +64,33 @@ export const useContestStore = defineStore('contests', () => {
                 if (participantType === 'CONTESTANT') {
                     contests.get(submission.contestId).contestants.add(user.handle);
                 }
+
+                // TODO: add information for each problems
+                // {username: xyz, inContest: true/false, status: SOLVED, UNSOLVED}
+                const contest = contests.get(submission.contestId)
+                for (const problem of contest.problems) {
+                    if (submission.problem.index === problem.index) {
+                        const currentStatus = problem.status.get(user.handle)
+                        const inContest = submission.author.participantType === 'CONTESTANT'
+                        const isSolved = submission.verdict === 'OK'
+                        if (currentStatus == undefined) {
+                            problem.status.set(user.handle, {
+                                isSolved: isSolved,
+                                inContest: inContest,
+                            })
+                        } else {
+                            if (!isSolved) problem.status.get(user.handle).inContest = inContest || currentStatus.inContest;
+                            else {
+                                if (!currentStatus.isSolved) {
+                                    currentStatus.isSolved = isSolved;
+                                    currentStatus.inContest = inContest;
+                                } else {
+                                    currentStatus.inContest = currentStatus.inContest || inContest;
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
         return contests;
