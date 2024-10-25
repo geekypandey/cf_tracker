@@ -16,13 +16,14 @@ export const useContestStore = defineStore('contests', () => {
     const userStore = useUserStore()
     const { users } = storeToRefs(userStore)
 
-    const contestData = new Map();
-    ContestsData.contests.filter(c => c.phase === 'FINISHED')
-                        .filter(c => c.problems != undefined)
-                        .map(c => new Contest(c))
-                        .forEach(c => contestData.set(c.id, c));
 
     const contests = computed(() => {
+        const contestData = new Map();
+        ContestsData.contests.filter(c => c.phase === 'FINISHED')
+                            .filter(c => c.problems != undefined)
+                            .map(c => new Contest(c))
+                            .forEach(c => contestData.set(c.id, c));
+
         const filterFunctions = [_filterBasedOnDivisions]
         const modifierFunctions = [_addUserAttemptInformation]
 
