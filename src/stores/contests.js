@@ -40,14 +40,18 @@ export const useContestStore = defineStore('contests', () => {
 
     function _filterBasedOnDivisions(contests) {
         if (selectedDivisions.value.length != 0) {
-            return contests.filter(contest => selectedDivisions.value.includes(contest.division))
+            return contests.filter(contest =>
+                selectedDivisions.value.includes(contest.division))
         }
         return contests
     }
 
     function _filterOnParticipantType(contests) {
-        if (participantType.value === 'contestant') return contests.filter(contest => contest.isContestant);
-        else if (participantType.value === 'participant') return contests.filter(contest => contest.isParticipant);
+        if (participantType.value === 'contestant') {
+            return contests.filter(contest => contest.isContestant);
+        } else if (participantType.value === 'participant') {
+            return contests.filter(contest => contest.isParticipant);
+        }
         return contests;
     }
 
