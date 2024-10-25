@@ -13,29 +13,21 @@ const { users } = storeToRefs(userStore)
 
 const filterStore = useFilterStore()
 const { selectedDivisions, participantType } = storeToRefs(filterStore)
+
+const divisionFilters = [
+    { name: 'Div. 1', value: '1', id: 'div1'},
+    { name: 'Div. 2', value: '2', id: 'div2'},
+    { name: 'Div. 3', value: '3', id: 'div3'},
+    { name: 'Div. 4', value: '4', id: 'div4'},
+    { name: 'Educational Round', value: 'E', id: 'educational'}
+]
 </script>
 
 <template>
     <div class="flex space-x-2">
-        <div class="flex space-x-1">
-            <input type="checkbox" id="div1" value="1" v-model="selectedDivisions" />
-            <label for="div1">Div 1</label>
-        </div>
-        <div class="flex space-x-1">
-            <input type="checkbox" id="div2" value="2" v-model="selectedDivisions" />
-            <label for="div2">Div 2</label>
-        </div>
-        <div class="flex space-x-1">
-            <input type="checkbox" id="div3" value="3" v-model="selectedDivisions" />
-            <label for="div3">Div 3</label>
-        </div>
-        <div class="flex space-x-1">
-            <input type="checkbox" id="div4" value="4" v-model="selectedDivisions" />
-            <label for="div4">Div 4</label>
-        </div>
-        <div class="flex space-x-1">
-            <input type="checkbox" id="educational" value="E" v-model="selectedDivisions" />
-            <label for="educational">Educational Rounds</label>
+        <div class="flex space-x-1" v-for="divFilter in divisionFilters">
+            <input type="checkbox" :id="divFilter.id" :value="divFilter.value" v-model="selectedDivisions" />
+            <label :for="divFilter.id">{{ divFilter.name }}</label>
         </div>
     </div>
 
