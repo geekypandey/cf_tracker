@@ -10,4 +10,18 @@ export default class Problem {
     this.type = problem.type;
     this.status = new Map();
   }
+
+  get isSolved() {
+      for (const [user, status] of this.status.entries()) {
+          if (status.isSolved) return true;
+      }
+      return false;
+  }
+
+  get isSolvedInContest() {
+      for (const [user, status] of this.status.entries()) {
+          if (status.isSolved && status.inContest) return true;
+      }
+      return false;
+  }
 }
