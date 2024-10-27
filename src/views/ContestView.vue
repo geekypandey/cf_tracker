@@ -14,7 +14,7 @@ const ranks = ref([])
   <div>
     <div class="mx-40 my-8 bg-white p-4 rounded-md">
       <UserSearch @updateUsers="usernames = $event" @updateRanks="ranks = $event" />
-      <UserInfo :usernames="usernames" :ranks="ranks" />
+      <UserInfo :usernames="usernames" :ranks="ranks" class="mb-1"/>
       <ContestFilters />
     </div>
   </div>
