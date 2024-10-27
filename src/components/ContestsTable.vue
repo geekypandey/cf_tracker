@@ -14,7 +14,7 @@ const { contests } = storeToRefs(contestStore)
 </script>
 
 <template>
-  <div v-if="!contests.length" style="text-align: center">Loading.....</div>
+  <div v-if="!contests.length" style="text-align: center">No Results Found</div>
 
   <DynamicScroller
     class="h-full"
