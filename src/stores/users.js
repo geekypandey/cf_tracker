@@ -20,7 +20,7 @@ export const useUserStore = defineStore('users', () => {
             .filter(username => !_isUserAlreadyPresent(username))
     }
 
-    async function addUser(usernames, save=false) {
+    async function addUser(usernames) {
         // TODO: handle the case when you get one or more incorrect usernames
         const usernameList = await _extractUsernamesFromString(usernames)
         if (usernameList.length === 0) return
@@ -31,9 +31,7 @@ export const useUserStore = defineStore('users', () => {
         }
         users.value.push(...userInfo)
 
-        if (save) {
-            _saveToStorage();
-        }
+        _saveToStorage();
     }
 
     function removeUser(userToRemove) {

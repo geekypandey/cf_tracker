@@ -10,12 +10,11 @@ onMounted(() => {
 const userInput = ref(null)
 const ranks = ref([])
 const errors = ref([])
-const rememberMe = ref(true)
 
 const userStore = useUserStore()
 
 const addUsernamesAndClearInput = async (usernames) => {
-    userStore.addUser(usernames, rememberMe.value)
+    userStore.addUser(usernames)
     userInput.value = ''
 }
 
@@ -42,11 +41,6 @@ const addUsernamesAndClearInput = async (usernames) => {
               <span>Remove all users</span>
           </div>
       </button>
-      <div class="flex justify-center space-x-2">
-          <input type="checkbox" id="remember_me" value="true" v-model="rememberMe" />
-          <!-- Is there any alternative for adding flex to label? -->
-          <label for="remember_me" class="flex items-center">Remember Me?</label>
-      </div>
     </form>
 
     <p v-show="errors.length">
