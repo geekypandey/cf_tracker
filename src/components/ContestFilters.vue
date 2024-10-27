@@ -19,6 +19,7 @@ const divisionFilters = [
     { name: 'Div. 2', value: '2', id: 'div2'},
     { name: 'Div. 3', value: '3', id: 'div3'},
     { name: 'Div. 4', value: '4', id: 'div4'},
+    { name: 'Div. 1 + Div. 2', value: '1&2', id: 'div1And2'},
     { name: 'Educational Round', value: 'E', id: 'educational'},
     { name: 'Kotlin', value: 'kotlin', id: 'kotlin'},
     { name: 'CodeTON', value: 'codeton', id: 'codeton'},
