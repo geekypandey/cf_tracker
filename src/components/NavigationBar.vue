@@ -24,7 +24,25 @@ import { ref } from 'vue'
 
 const isDarkMode = ref(document.documentElement.classList.contains('dark'));
 
+const setUserPreferredTheme = () => {
+    const userPreference = localStorage.getItem('theme')
+    if (userPreference === 'dark') {
+        isDarkMode.value = true;
+        document.documentElement.classList.add('dark');
+    } else if (userPreference === 'light') {
+        isDarkMode.value = false;
+        document.documentElement.classList.remove('dark');
+    }
+}
+
 const toggleDarkMode = () => {
     isDarkMode.value = document.documentElement.classList.toggle('dark');
+    if (isDarkMode.value) {
+        localStorage.setItem('theme', 'dark')
+    } else {
+        localStorage.setItem('theme', 'light')
+    }
 }
+
+setUserPreferredTheme();
 </script>
