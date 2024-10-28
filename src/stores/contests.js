@@ -22,6 +22,7 @@ export const useContestStore = defineStore('contests', () => {
         ContestsData.contests.filter(c => c.phase === 'FINISHED')
                             .filter(c => c.problems != undefined)
                             .map(c => new Contest(c))
+                            .toSorted((a, b) => b.startDate - a.startDate)
                             .forEach(c => contestData.set(c.id, c));
 
         const filterFunctions = [_filterBasedOnDivisions]
