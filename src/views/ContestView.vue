@@ -12,13 +12,13 @@ const ranks = ref([])
 
 <template>
   <div>
-    <div class="mx-40 my-8 bg-white p-4 rounded-md">
+    <div class="mx-40 my-8 bg-white dark:bg-gray-800 dark:text-white p-4 rounded-md">
       <UserSearch @updateUsers="usernames = $event" @updateRanks="ranks = $event" />
       <UserInfo :usernames="usernames" :ranks="ranks" class="mb-1"/>
       <ContestFilters />
     </div>
   </div>
-  <div class="mx-4 bg-white rounded-md">
+  <div class="mx-4 bg-white dark:bg-gray-800 dark:text-white rounded-md">
     <ContestsTable :usernames="usernames" />
   </div>
 </template>
