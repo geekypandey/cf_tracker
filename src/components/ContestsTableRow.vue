@@ -13,11 +13,11 @@ defineProps({
       </div>
       <div class="flex space-x-1 p-0">
           <div class="flex flex-col items-center text-center border border-black rounded-md w-20" 
-              :class="[problem.isSolved ? 'bg-solved-green' : '', contest.isParticipant && !problem.isSolved ? 'bg-unsolved-red' : '']" v-for="problem in contest.problems">
-              <span class="w-12 hover:underline hover:cursor-pointer">
-                  <a :href="problem.link" target="_blank" class="font-mono text-lg" :class="{ 'dark:text-black': problem.isSolved }">{{ problem.index }}</a>
-                  <span v-if="problem.isSolvedInContest">&#10004;</span>
-                  <span v-if="contest.isContestant && !problem.isSolved">&#10008;</span>
+              :class="[problem.isSolved ? 'bg-solved-green' : '', (problem.isAttempted && !problem.isSolved) ? 'bg-unsolved-red' : '']" v-for="problem in contest.problems">
+              <span class="w-12 hover:underline hover:cursor-pointer flex space-x-1 items-center justify-center">
+                  <a :href="problem.link" target="_blank" class="font-mono text-lg" :class="{ 'dark:text-black': problem.isAttempted }">{{ problem.index }}</a>
+                  <span v-if="problem.isSolvedInContest" class="text-black">&#10003;</span>
+                  <span v-if="contest.isContestant && problem.isAttempted && !problem.isSolved" class="dark:text-black">&#10008;</span>
               </span>
               <span class="text-sm text-gray-500 font-mono" :class="[problem.isSolved ? 'dark:text-gray-600' : 'dark:text-gray-400']"> {{ problem.solvedCount }} </span>
           </div>

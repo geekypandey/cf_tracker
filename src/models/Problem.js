@@ -24,4 +24,8 @@ export default class Problem {
       }
       return false;
   }
+
+  get isAttempted() {
+      return this.status.size > 0;
+  }
 }
