@@ -11,8 +11,8 @@ defineProps({
       <div class="py-2 text-center hover:underline hover:cursor-pointer w-96">
           <a :href="contest.link" target="_blank" class="font-mono text-md">{{ contest.name }}</a>
       </div>
-      <div class="flex space-x-1 p-0">
-          <div class="flex flex-col items-center text-center border border-black rounded-md w-20" 
+      <div class="flex p-0 flex-wrap">
+          <div class="flex flex-col items-center text-center border border-black rounded-md w-20 m-1"
               :class="[problem.isSolved ? 'bg-solved-green' : '', (problem.isAttempted && !problem.isSolved) ? 'bg-unsolved-red' : '']" v-for="problem in contest.problems">
               <span class="w-12 hover:underline hover:cursor-pointer flex space-x-1 items-center justify-center">
                   <a :href="problem.link" target="_blank" class="font-mono text-lg" :class="{ 'dark:text-black': problem.isAttempted }">{{ problem.index }}</a>
