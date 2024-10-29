@@ -30,8 +30,8 @@ const divisionFilters = [
 </script>
 
 <template>
-    <div class="flex space-x-2">
-        <div class="flex space-x-1" v-for="divFilter in divisionFilters">
+    <div class="flex flex-wrap">
+        <div class="flex space-x-1 px-1" v-for="divFilter in divisionFilters">
             <input type="checkbox" :id="divFilter.id" :value="divFilter.value" v-model="selectedDivisions" />
             <label :for="divFilter.id">{{ divFilter.name }}</label>
         </div>
