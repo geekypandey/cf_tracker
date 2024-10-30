@@ -25,6 +25,7 @@ jobs:
           npm ci
           npm run build
           cd dist
+          cp index.html 404.html
           echo "cf-tracker.tech" > CNAME
           git config --global user.name "Github Actions Bot"
           git config --global user.email "<>"
