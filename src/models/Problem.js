@@ -28,4 +28,11 @@ export default class Problem {
   get isAttempted() {
       return this.status.size > 0;
   }
+
+  get isContestant() {
+      for (const [_, status] of this.status.entries()) {
+          if (status.inContest) return true;
+      }
+      return false;
+  }
 }
