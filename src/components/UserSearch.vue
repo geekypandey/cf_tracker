@@ -22,8 +22,8 @@ const addUsernamesAndClearInput = async (usernames) => {
 
 <template>
     <div>
-        <form class="flex w-full gap-2 flex-col sm:flex-row" @submit.prevent="addUsernameAndClearInput(userInput)">
-            <input id="userInput" class="px-2 border border-gray-600 rounded-md w-full py-1 dark:bg-blue-100 text-gray-900 focus:outline-none" type="text" placeholder="Enter usernames separated by semicolon (;)" />
+        <form class="flex w-full gap-2 flex-col sm:flex-row" @submit.prevent="addUsernamesAndClearInput(userInput)">
+            <input id="userInput" class="px-2 border border-gray-600 rounded-md w-full py-1 dark:bg-blue-100 text-gray-900 focus:outline-none" type="text" v-model="userInput" placeholder="Enter usernames separated by semicolon (;)" />
             <button class="flex items-center justify-center px-4 rounded-lg bg-blue-800 py-1 hover:bg-blue-700 shrink-0">
               <div class="flex gap-2 items-center text-white">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4">
