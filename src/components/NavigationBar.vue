@@ -4,6 +4,14 @@
       <!-- Change the font of this heading -->
       <span class="text-3xl font-medium text-white">&lt;CF-TRACKER /&gt;</span>
     </div>
+    <div class="flex text-white text-lg font-semibold divide-x-2">
+      <div>
+        <RouterLink to="/problemset" class="px-2 hover:text-gray-800 hover:bg-white hover:rounded mx-2">Problemset</RouterLink>
+      </div>
+      <div>
+        <RouterLink to="/contests" class="px-2 hover:text-gray-800 hover:bg-white hover:rounded mx-2">Contests</RouterLink>
+      </div>
+    </div>
     <div class="hover:cursor-pointer items-center">
         <Sun class="text-white h-6 w-6" fill="white" @click="toggleDarkMode()" v-if="isDarkMode"/>
         <MoonStar class="text-black h-6 w-6" fill="black" @click="toggleDarkMode()" v-else/>
