@@ -17,6 +17,12 @@ export const useContestStore = defineStore('contests', () => {
     const { users } = storeToRefs(userStore)
 
 
+    const upcomingContests = computed(() => {
+        return ContestsData.contests.filter(c => c.phase === 'BEFORE')
+                                    .map(c => new Contest(c))
+                                    .toSorted((a, b) => a.startDate - b.startDate)
+    })
+
     const contests = computed(() => {
         const contestData = new Map();
         ContestsData.contests.filter(c => c.phase === 'FINISHED')
@@ -98,5 +104,5 @@ export const useContestStore = defineStore('contests', () => {
         return contests;
     }
 
-    return { contests }
+    return { contests, upcomingContests }
 })
