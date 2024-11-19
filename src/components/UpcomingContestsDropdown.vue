@@ -6,9 +6,10 @@
       </div>
       <button @click="isOpen = false" v-if="isOpen" class="fixed inset-0 w-full h-full cursor-default bg-black opacity-20"></button>
       <div class="absolute right-0 border border-gray-800 bg-white rounded px-2 mt-2 z-10 shadow-xl" v-if="isOpen">
-        <div v-for="contest in upcomingContests" :key="contest.id" class="group w-56 border-b border-gray-400 px-2 py-1 hover:bg-gray-200 hover:cursor-pointer">
-          <a :href="contest.link" target="_blank">{{  contest.name }}</a>
+        <div v-for="contest in upcomingContests" :key="contest.id" class="group w-56 border-b border-gray-400 px-2 py-1 hover:bg-gray-200 cursor-default">
+          <span>{{  contest.name }}</span>
           <div class="text-gray-500 text-xs">{{ contest.startDate }}</div>
+          <a :href="contest.link" target="_blank" class="text-white text-sm underline bg-red-700 rounded px-1" v-if="contest.link !== ''">Register</a>
         </div>
       </div>
     </div>
