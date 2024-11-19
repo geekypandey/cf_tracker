@@ -14,18 +14,7 @@
             <RouterLink to="/contests" class="px-2 hover:text-gray-800 hover:bg-white hover:rounded mx-2">Contests</RouterLink>
           </div>
         </div>
-        <div class="relative">
-          <div class="flex items-center gap-1 hover:cursor-pointer" @click="showUpcomingContests = !showUpcomingContests">
-              <div class="text-white font-semibold">Upcoming Contests</div>
-              <ChevronDown class="h-4 w-4 text-white" />
-          </div>
-          <div class="absolute top-10 right-0 border border-gray-800 bg-white rounded px-2 py-1 z-10" v-if="showUpcomingContests">
-            <div v-for="contest in upcomingContests" :key="contest.id" class="group w-56 border-b border-gray-400 px-2 py-1 hover:bg-gray-200 hover:cursor-pointer">
-              <a :href="contest.link" target="_blank">{{  contest.name }}</a>
-              <div class="text-gray-500 text-xs">{{ contest.startDate }}</div>
-            </div>
-          </div>
-        </div>
+        <UpcomingContestsDropdown />
       </div>
       <div class="hover:cursor-pointer items-center">
           <div>
@@ -45,16 +34,11 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { storeToRefs } from 'pinia'
-import { ChevronDown, MoonStar, Sun, Menu } from 'lucide-vue-next';
-import { useContestStore } from '@/stores/contests'
+import { ref, onMounted } from 'vue'
+import { MoonStar, Sun, Menu } from 'lucide-vue-next';
+import UpcomingContestsDropdown from '@/components/UpcomingContestsDropdown.vue'
 
 const isDarkMode = ref(document.documentElement.classList.contains('dark'));
-const contestStore = useContestStore();
-const { upcomingContests } = storeToRefs(contestStore);
-
-const showUpcomingContests = ref(false);
 const showMenu = ref(false);
 
 const setUserPreferredTheme = () => {
@@ -77,5 +61,7 @@ const toggleDarkMode = () => {
     }
 }
 
-setUserPreferredTheme();
+onMounted(() => {
+  setUserPreferredTheme();
+})
 </script>
