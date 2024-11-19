@@ -16,7 +16,7 @@
         </div>
         <div class="relative">
           <div class="flex items-center gap-1 hover:cursor-pointer" @click="showUpcomingContests = !showUpcomingContests">
-              <div class="text-white">Upcoming Contests</div>
+              <div class="text-white font-semibold">Upcoming Contests</div>
               <ChevronDown class="h-4 w-4 text-white" />
           </div>
           <div class="absolute top-10 right-0 border border-gray-800 bg-white rounded px-2 py-1 z-10" v-if="showUpcomingContests">
