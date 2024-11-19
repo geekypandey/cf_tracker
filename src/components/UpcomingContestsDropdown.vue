@@ -1,11 +1,10 @@
 <template>
-    <div class="relative z-10">
-      <div class="relative flex items-center gap-1 hover:cursor-pointer z-10" @click="isOpen = !isOpen">
+    <div class="relative" @mouseover="isOpen = true" @mouseleave="isOpen = false">
+      <div class="flex items-center gap-1 hover:cursor-pointer">
           <div class="text-white font-semibold">Upcoming Contests</div>
           <ChevronDown class="h-4 w-4 text-white" />
       </div>
-      <button @click="isOpen = false" v-if="isOpen" class="fixed inset-0 w-full h-full cursor-default bg-black opacity-20"></button>
-      <div class="absolute right-0 border border-gray-800 bg-white rounded px-2 mt-2 z-10 shadow-xl" v-if="isOpen">
+      <div class="absolute right-0 border border-gray-800 bg-white rounded px-2 mt-2 shadow-xl" v-if="isOpen" @mouseover="isOpen = true">
         <div v-for="contest in upcomingContests" :key="contest.id" class="group w-56 border-b border-gray-400 px-2 py-1 hover:bg-gray-200 cursor-default">
           <span>{{  contest.name }}</span>
           <div class="text-gray-500 text-xs">{{ contest.startDate }}</div>
