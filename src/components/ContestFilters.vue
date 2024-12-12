@@ -39,15 +39,15 @@ const divisionFilters = [
 
     <div v-show="users.length" class="flex space-x-2">
         <div class="flex space-x-1">
-            <input type="radio" name="whichContests" value="any" v-model="participantType" />
+            <input id="all" type="radio" name="whichContests" value="any" v-model="participantType" />
             <label for="all">All</label>
         </div>
         <div class="flex space-x-1">
-            <input type="radio" name="whichContests" value="contestant" v-model="participantType" />
+            <input id="participated" type="radio" name="whichContests" value="contestant" v-model="participantType" />
             <label for="participated">Contests Participated</label>
         </div>
         <div class="flex space-x-1">
-            <input type="radio" name="whichContests" value="participant" v-model="participantType" />
+            <input id="attempted" type="radio" name="whichContests" value="participant" v-model="participantType" />
             <label for="attempted">Attempted Any</label>
         </div>
     </div>
