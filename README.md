@@ -2,9 +2,9 @@
 
 ![example workflow](https://github.com/geekypandey/cf_tracker/actions/workflows/main.yml/badge.svg)
 
-> A codeforces tracker, helps to find appropriate problems for solving.
+> Codeforces Tracker, helps you discover the right problems to sovle.
 
-![cf-tracker](https://user-images.githubusercontent.com/24317727/125158183-ed6dd000-e18c-11eb-8dca-63f99c2f7ad0.png)
+![cf-tracker](https://github.com/user-attachments/assets/7478d634-eff2-4ea5-95d9-4381b787a4c9)
 
 
 ### Tech Stack
