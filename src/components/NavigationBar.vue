@@ -3,7 +3,9 @@
     <div class="flex justify-around items-center py-2 w-full">
       <div>
         <!-- Change the font of this heading -->
-        <span class="text-3xl font-medium text-white">&lt;CF-TRACKER /&gt;</span>
+        <RouterLink to="/">
+            <span class="text-3xl font-medium text-white">&lt;CF-TRACKER /&gt;</span>
+        </RouterLink>
       </div>
       <div class="hidden md:flex justify-around gap-16">
         <div class="flex divide-x-2 font-semibold text-lg text-white">
