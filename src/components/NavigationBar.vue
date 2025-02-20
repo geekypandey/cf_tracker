@@ -16,7 +16,7 @@
             <RouterLink to="/contests" class="px-2 hover:text-gray-800 hover:bg-white hover:rounded mx-2">Contests</RouterLink>
           </div>
         </div>
-        <UpcomingContestsDropdown />
+        <UpcomingContestsDropdown class="z-10"/>
       </div>
       <div class="hover:cursor-pointer items-center">
           <div>
